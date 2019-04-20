@@ -1,0 +1,83 @@
+{% load static %}
+{% url 'venue:homeUrl' as HomeUrl %}
+{% url 'venue:venueListUrl' as VenueListUrl %}
+
+<!-- User Action -->
+{% url 'account:logout' as LogoutUrl %}
+{% url 'account:login' as loginUrl %}
+{% url 'account:registration' as RegistrationUrl %}
+
+<div class="header-transparent header-transparent-fullwidth">
+  <!-- navigation start -->
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+              <nav class="navbar navbar-expand-lg navbar-transparent">
+                  <a class="navbar-brand" href="{{ HomeUrl }}"> <img src="{% static 'assets/images/logo-white.png' %}" alt=""></a>
+                  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbar-transparent" aria-controls="navbar-transparent" aria-expanded="false" aria-label="Toggle navigation">
+                      <span class="icon-bar top-bar mt-0"></span>
+                      <span class="icon-bar middle-bar"></span>
+                      <span class="icon-bar bottom-bar"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbar-transparent">
+                      <ul class="navbar-nav ml-auto mt-2 mt-lg-0 mr-3">
+                          <li class="nav-item">
+                              <a class="nav-link" href="{{ HomeUrl }}">
+                                  Homepage
+                              </a>
+                          </li>
+                          <!-- <li class="nav-item dropdown">
+                              <a class="nav-link dropdown-toggle" href="#" id="menu-2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                  Vendors
+                              </a>
+                              <ul class="dropdown-menu" aria-labelledby="menu-2">
+                                  <li class="dropdown-submenu">
+                                      <a class="dropdown-item dropdown-toggle" href="#">Listing</a>
+                                      <ul class="dropdown-menu ">
+                                          <li><a class="dropdown-item" href="list-grid-view.html">
+                                                  List Grid View</a>
+                                          </li>
+                                          <li><a class="dropdown-item" href="list-view-sidebar.html">
+                                                  List View Sidebar</a>
+                                          </li>
+                                          <li><a class="dropdown-item" href="list-half-screen-map.html">
+                                                  List Half Screen Map</a>
+                                          </li>
+                                      </ul>
+                                  </li>
+                                  <li class="dropdown-submenu">
+                                      <a class="dropdown-item dropdown-toggle" href="#">List Single</a>
+                                      <ul class="dropdown-menu">
+                                          <li><a class="dropdown-item" href="list-single-1.html">
+                                                  List Single 1</a>
+                                          </li>
+                                          <li><a class="dropdown-item" href="list-single-2.html">
+                                                  List Single 2</a>
+                                          </li>
+                                          <li><a class="dropdown-item" href="list-single-3.html">
+                                                  List Single With Video</a>
+                                          </li>
+                                          <li><a class="dropdown-item" href="list-single-4.html">
+                                                  List Single With Gallery</a>
+                                          </li>
+                                      </ul>
+                                  </li>
+                                  <li><a class="dropdown-item" href="vendor-category.html">
+                                          Vendor By Categories</a>
+                                  </li>
+                                  <li><a class="dropdown-item" href="vendor-location.html">
+                                          Vendor By Locations</a>
+                                  </li>
+                              </ul>
+                          </li> -->
+
+                      </ul>
+                      <a href="{{ LoginUrl }}" class="btn btn-default btn-sm mr-1">Login</a>
+                      <a href="#" class="btn btn-primary btn-sm">Add to Listing</a>
+                  </div>
+              </nav>
+          </div>
+      </div>
+  </div>
+  <!-- navigation close -->
+</div>

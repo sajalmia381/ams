@@ -1,0 +1,20 @@
+{% extends 'base/base-site.html' %}
+    {% block content %}
+    <section class="mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                  <div class="card">
+                      {% if object.image %}
+                      <img src="{{ object.image.url }}" class="card-img-top" alt="...">
+                      {% endif %}
+                      <div class="card-body">
+                        <h5 class="card-title">{{ object.name }}</h5>
+                        <p class="card-text">{{ object.description }}</p>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}

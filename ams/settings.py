@@ -38,8 +38,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    'account',
     'venue',
+
+    'multiselectfield',
 ]
+
+AUTH_USER_MODEL = 'account.User'  # change the Build in models to custom User Model
+LOGIN_URL = '/login/'
+LOGOUT_URL = '/logout/'
+LOGIN_URL_REDIRECT = '/'
+LOGOUT_REDIRECT_URL = '/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

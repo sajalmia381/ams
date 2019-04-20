@@ -1,0 +1,75 @@
+{% extends 'base/base-site.html' %}
+{% load static %}
+
+{% block title %}Login{% endblock %}
+
+{% block css %}
+{% endblock %}
+
+{% block js %}
+{% endblock %}
+
+{% block breadcrumb %}
+    <section id="page-title">
+        <div class="container clearfix">
+            <h1>My Account</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item"><a href="#">Pages</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Login</li>
+            </ol>
+        </div>
+    </section>
+{% endblock %}
+
+{% block content %}
+<section id="content">
+
+    <div class="content-wrap">
+
+        <div class="container clearfix">
+
+            <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
+                {% if messages %}
+                <div class="messages">
+                    {% for message in messages %}
+                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+                <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Login to your Account</div>
+                <div class="acc_content clearfix">
+                    <form id="login-form" name="login-form" class="nobottommargin" action="{% url 'account:login' %}" method="post">
+                        {% csrf_token %}
+                        {% if next_url %}
+                        <input type="hidden" name="next" value="{{ next_url }}">
+                        {% endif %}
+
+                        {{ form.non_field_errors }}
+                        <div class="col_full">
+                            <label for="{{ form.email.id_for_label }}">Email:</label>
+                            {{ form.email }}
+                        </div>
+
+                        <div class="col_full">
+                            <label for="{{ form.password.id_for_label }}">Password:</label>
+                            {{ form.password }}
+                        </div>
+
+                        <div class="col_full nobottommargin">
+                            <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
+                            <a href="#" class="fright">Forgot Password?</a>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="acctitle"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>New Signup? Register for an Account</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    </section>
+{% endblock %}

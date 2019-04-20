@@ -1,0 +1,23 @@
+{% extends 'base/base-site.html' %}
+    {% block content %}
+    <section class="mt-5">
+        <div class="container">
+            <div class="row">
+                {% for obj in object_list %}
+                  <div class="col-md-6 mt-4">
+                      <div class="card">
+                          {% if obj.image %}
+                          <a href="{{ obj.get_absolute_url }}"><img src="{{ obj.image.url }}" class="card-img-top" alt="..."></a>
+                          {% endif %}
+                          <div class="card-body">
+                            <h5 class="card-title">{{ obj.name }}</h5>
+                            <p class="card-text">{{ obj.description|truncatechars:100 }}</p>
+                            <a href="{{ obj.get_absolute_url }}" class="btn btn-primary">More Details</a>
+                          </div>
+                        </div>
+                  </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    {% endblock %}

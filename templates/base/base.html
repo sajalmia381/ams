@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en"> {% load static %}
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %}{% endblock %}</title>
+
+        <!-- <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/images/favicon.ico' %}"> -->
+
+        <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">
+
+        <link href="{% static 'assets/css/bootstrap.min.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/fontawesome/css/fontawesome-all.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/fontello/css/fontello.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/wedding-icon-font/flaticon.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/owl.carousel.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/owl.theme.default.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/dzsparallaxer.css' %}" rel="stylesheet">
+        <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+        {% block css %}
+        {% endblock %}
+    </head>
+
+    <body>
+        {% block header %}
+        {% endblock %}
+
+        {% block breadcrumb %}
+        {% endblock %}
+
+        {% block banner %}
+        {% endblock %}
+
+        {% block content %}
+        {% endblock %}
+
+        {% block footer %}
+        {% endblock %}
+        <a href="javascript:" id="return-to-top"><i class="fa fa-angle-up"></i></a>
+
+        <script src="{% static 'assets/js/jquery.min.js' %}"></script>
+        <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+    
+        <script src="{% static 'assets/js/owl.carousel.min.js' %}"></script>
+        <script src="{% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+        <script src="{% static 'assets/js/fastclick.js' %}"></script>
+        <script src="{% static 'assets/js/custom-script.js' %}"></script>
+        <script src="{% static 'assets/js/return-to-top.js' %}"></script>
+        <script src="{% static 'assets/js/dzsparallaxer.js' %}"></script>
+        <scripts>
+          (function ($) {
+              $('[data-bg-image]').each(function () {
+                var img = $(this).data('bg-image');
+                $(this).css({
+                  background: 'url(' + img + ')'
+                });
+              });
+          })(jQuery);
+        </scripts>
+        {% block js %}
+        {% endblock %}
+    </body>
+</html>
