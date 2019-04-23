@@ -13,7 +13,7 @@ Python 3+ and Django 2+
   - venv\scripts\activate [ it will be active local virtualenv ]
 3. Create A src folder
   - cd src
-  - download prodject in side src Folder/ [ can download with commad == git clone https://github.com/sajalmia381/ams/ ]
+  - download prodject in side src Folder/ [ can download with commad == git clone https://github.com/sajalmia381/ams/ . ]
 4. inside Src Folder
   - pip install -r requitements.txt
 5. setup Complated
