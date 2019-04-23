@@ -18,6 +18,25 @@
         <link href="{% static 'assets/css/owl.theme.default.css' %}" rel="stylesheet">
         <link href="{% static 'assets/css/dzsparallaxer.css' %}" rel="stylesheet">
         <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+        <style>
+          .header-transparent {
+              top: 0;
+          }
+          .page-header {
+              background-size: cover!important;
+              background-position: center!important;
+              background-repeat: no-repeat!important;
+          }
+
+          .pagination .page-item .page-link.disabled {
+            cursor: not-allowed;
+            opacity: .5;
+          }
+
+          .vendor-form{
+            padding: 120px 0;
+          }
+        </style>
         {% block css %}
         {% endblock %}
     </head>
@@ -48,16 +67,17 @@
         <script src="{% static 'assets/js/custom-script.js' %}"></script>
         <script src="{% static 'assets/js/return-to-top.js' %}"></script>
         <script src="{% static 'assets/js/dzsparallaxer.js' %}"></script>
-        <scripts>
+        <script>
           (function ($) {
               $('[data-bg-image]').each(function () {
                 var img = $(this).data('bg-image');
                 $(this).css({
                   background: 'url(' + img + ')'
                 });
+                console.log($(thils))
               });
           })(jQuery);
-        </scripts>
+        </script>
         {% block js %}
         {% endblock %}
     </body>

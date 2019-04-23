@@ -383,9 +383,6 @@ if ($('.notification-list').length) {
 
     }
 
-
     /* accordion js (plus-minus-outline) **/
-
-
 
 }); // AND OF JQUERY

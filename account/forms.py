@@ -53,15 +53,15 @@ class UserAdminChangeForm(forms.ModelForm):
 class UserRegistrationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
-    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+    password2 = forms.CharField(label='Password confirmation', widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Re-Enter Password'}))
 
     class Meta:
         model = User
         fields = ('full_name', 'email',)  # 'full_name',)
         widgets = {
-            'full_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'full_name': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Full Name'}),
+            'email': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Email'}),
             # 'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
@@ -82,22 +82,7 @@ class UserRegistrationForm(forms.ModelForm):
             user.save()
         return user
 
-# class UserRegistrationForm(UserCreationForm):
-#
-#     class Meta:
-#         model = User
-#
-#         fields = ('email', 'password1', 'password2')  # 'first_name', 'last_name', 'username',
-#         widgets = {
-#             # 'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-#             # 'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-#             # 'username': forms.TextInput(attrs={'class': 'form-control'}),
-#             'email': forms.EmailInput(attrs={'class': 'form-control'}),
-#             'password1': forms.PasswordInput(attrs={'class': 'form-control'}),
-#             'password2': forms.PasswordInput(attrs={'class': 'form-control'}),
-#         }
-
 
 class LoginForm(forms.Form):
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Email")
-    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control'}))
+    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), label="Email")
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))

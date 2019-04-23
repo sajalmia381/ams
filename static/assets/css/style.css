@@ -678,7 +678,7 @@ img.grayscale:hover { filter: grayscale(0); opacity: 1; transition-property: fil
 /*--- 5.2 Header Transparent ---*/
 
 /*--- 5.4 Page Header ---*/
-.page-header { border-bottom: transparent; background: url(../images/page-header.jpg) no-repeat center; background-size: cover; min-height: 340px; }
+.page-header { border-bottom: transparent; min-height: 340px; }
 .page-breadcrumb { background-color: rgb(0, 0, 0, .1); border-top: none; }
 .page-breadcrumb .breadcrumb { display: -webkit-box; display: -ms-flexbox; display: flex; -ms-flex-wrap: wrap; flex-wrap: wrap; padding: 4px; margin-bottom: 0px; list-style: none; background-color: transparent; border-radius: 0px; color: #fff; }
 .page-breadcrumb .breadcrumb .breadcrumb-item { font-size: 13px; }

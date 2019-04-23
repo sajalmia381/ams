@@ -43,7 +43,7 @@ class Venue(models.Model):
     # Model Field
     name = models.CharField(max_length=250)
     seating_capacity = models.PositiveIntegerField()
-    standing_capacity = models.PositiveIntegerField(default=3100)
+    standing_capacity = models.PositiveIntegerField(default=15)
     address = models.CharField(max_length=300)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)

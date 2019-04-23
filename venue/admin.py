@@ -22,13 +22,14 @@ admin.site.register(Venue, VenueAdmin)
 
 class VenueBookingAdmin(admin.ModelAdmin):
     list_display = ['booking_id', 'email', 'venue']
+    readonly_fields = ('booking_id', )
     # formfield_overrides = {
     #     models.DateField: {'widget': }
     # }
-    # exclude = ('booking_id', )
+    exclude = ('booking_id', )
 
-    def get_readonly_fields(self, request, obj=None):
-        return ['booking_id']
+    # def get_readonly_fields(self, request, obj=None):
+    #     return ['booking_id']
 
 
 admin.site.register(VenueBooking, VenueBookingAdmin)

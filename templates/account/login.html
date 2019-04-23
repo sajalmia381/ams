@@ -10,66 +10,65 @@
 {% endblock %}
 
 {% block breadcrumb %}
-    <section id="page-title">
-        <div class="container clearfix">
-            <h1>My Account</h1>
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Pages</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Login</li>
-            </ol>
-        </div>
-    </section>
 {% endblock %}
 
 {% block content %}
-<section id="content">
-
-    <div class="content-wrap">
-
-        <div class="container clearfix">
-
-            <div class="accordion accordion-lg divcenter nobottommargin clearfix" style="max-width: 550px;">
-                {% if messages %}
-                <div class="messages">
-                    {% for message in messages %}
-                    <div {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</div>
-                    {% endfor %}
+<div class="vendor-form">
+    <div class="container">
+        <div class="row ">
+            <div class="offset-xl-3 col-xl-6 offset-lg-3 col-lg-6 col-md-12 col-sm-12 col-12  ">
+                <!-- /.vendor head -->
+                <div class="st-tab">
+                    <ul class="nav nav-tabs nav-justified" id="Mytabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" id="tab-2" data-toggle="tab" href="#tab2" role="tab" aria-controls="tab-2" aria-selected="false">Login</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'account:registration' %}">Register</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <!-- vendor-login -->
+                        <div class="tab-pane show fade active" id="tab2" role="tabpanel" aria-labelledby="tab-2">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                <div class="vendor-form-title">
+                                    <!--vendor-title -->
+                                    <h3 class="mb-2">Welcome Back Vendor</h3>
+                                    <p>Join AMS to get your business listed or to claim your listing for FREE!</p>
+                                </div>
+                                <!--/.vendor-title -->
+                                <form action="{% url 'account:login' %}" method="post" id="login-form" name="login-form">
+                                    {% csrf_token %}
+                                    {% if next_url %}
+                                    <input type="hidden" name="next" value="{{ next_url }}">
+                                    {% endif %}
+                                    <div class="row">
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                            <!-- Text input-->
+                                            <div class="form-group">
+                                                {{ form.email }}
+                                            </div>
+                                        </div>
+                                        <!-- Text input-->
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                            <div class="form-group service-form-group">
+                                                {{ form.password }}
+                                            </div>
+                                        </div>
+                                        <!--buttons -->
+                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
+                                            <button value="login" type="submit" name="singlebutton" class="btn btn-default">Login</button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <p class="mt-2"> Are you new User? Create a New Account.<a href="{% url 'account:registration' %}" class="wizard-form-small-text"> Click here</a></p>
+                            </div>
+                        </div>
+                        <!-- /.vendor-login -->
+                    </div>
                 </div>
-                {% endif %}
-                <div class="acctitle"><i class="acc-closed icon-lock3"></i><i class="acc-open icon-unlock"></i>Login to your Account</div>
-                <div class="acc_content clearfix">
-                    <form id="login-form" name="login-form" class="nobottommargin" action="{% url 'account:login' %}" method="post">
-                        {% csrf_token %}
-                        {% if next_url %}
-                        <input type="hidden" name="next" value="{{ next_url }}">
-                        {% endif %}
-
-                        {{ form.non_field_errors }}
-                        <div class="col_full">
-                            <label for="{{ form.email.id_for_label }}">Email:</label>
-                            {{ form.email }}
-                        </div>
-
-                        <div class="col_full">
-                            <label for="{{ form.password.id_for_label }}">Password:</label>
-                            {{ form.password }}
-                        </div>
-
-                        <div class="col_full nobottommargin">
-                            <button class="button button-3d button-black nomargin" id="login-form-submit" name="login-form-submit" value="login">Login</button>
-                            <a href="#" class="fright">Forgot Password?</a>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="acctitle"><i class="acc-closed icon-user4"></i><i class="acc-open icon-ok-sign"></i>New Signup? Register for an Account</div>
-
             </div>
-
         </div>
-
     </div>
-
-    </section>
+</div>
 {% endblock %}

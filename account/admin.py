@@ -16,6 +16,8 @@ class UserCustomAdmin(UserAdmin):
     list_display = ['email', 'admin', 'staff', 'is_active']
     list_filter = ['admin', 'staff', 'is_active']
 
+    readonly_fields = ('timestamp', )
+
     fieldsets = (
         (None, {'fields': ('email', 'password')}),
         ('Username', {
@@ -24,6 +26,7 @@ class UserCustomAdmin(UserAdmin):
         }),
         ('User Details', {'fields': ('full_name', 'bio', 'image',)}),
         ('Permissions', {'fields': ('admin', 'staff', 'is_active')}),
+        ('Time', {'fields': ('timestamp',)}),
     )
 
     add_fieldsets = (

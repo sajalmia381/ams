@@ -9,9 +9,11 @@ class HomeView(generic.TemplateView):
 
 class VenueListView(generic.ListView):
     queryset = Venue.objects.all()
+    paginate_by = 1
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super(VenueListView, self).get_context_data(**kwargs)
+        print(context)
         return context
 
 
