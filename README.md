@@ -15,10 +15,10 @@ Python 3+ and Django 2+
    
 3. Create A src folder
    - cd src
-   - download prodject in side src Folder/ [ can download with commad == git clone https://github.com/sajalmia381/ams/ . ]
+   - download project inside src Folder/ [ can download with commad == git clone https://github.com/sajalmia381/ams/ . ]
    
 4. inside Src Folder
-   - pip install -r requitements.txt
+   - pip install -r requirements.txt
    
-5. setup Complated
+5. setup Completed
    - python manage.py runserver
