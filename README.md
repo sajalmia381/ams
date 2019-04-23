@@ -1,0 +1,2 @@
+# ams
+Auditorium Management System
