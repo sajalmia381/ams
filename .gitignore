@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io
 
+**/**/migrations
+**/migrations/
+.idea/
+
 ### OSX ###
 .DS_Store
 .AppleDouble
