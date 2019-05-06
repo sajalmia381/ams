@@ -1,0 +1,142 @@
+{% extends 'base/base-site.html' %}
+    {% block css %}
+    <style>
+    .nice-select{
+        float: inherit;
+    }
+    .help_text{
+        font-size: 12px;
+    }
+    </style>
+    {% endblock %}
+    {% block breadcrumb %}
+    {% endblock %}
+    {% block content %}
+    <div class="py-5">
+        <div class="mb-5">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="dashboard-page-header">
+                            <h3 class="dashboard-page-title">Add New Venue</h3>
+                            <p>Lists present multiple line items vertically as a single continuous element.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header"> <h4 class="mb0">About Venue</h4></div>
+                    <div class="">
+                        <form action="{% url 'venue:venueCreate' %}" method="POST">
+                            {% csrf_token %}
+                            <!-- Form Name -->
+                            <div class="venue-form-info card-body">
+                                <div class="row">
+                                   
+                                    <!-- Text input-->
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="{{ form.name.label_id }}">{{ form.name.label }}</label>
+                                            {{ form.name }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="control-label" for="Category">Category</label>
+                                            {{ form.seating_capacity }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="seat">Seat Capacity</label>
+                                            {{ form.standing_capacity }}
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="price">Price <small>(Start From)</small></label>
+                                            {{ form.price }}
+                                            <span class="help_text">
+                                                {{ form.price.help_text }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="city">City</label>
+                                            {{ form.city }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <!-- Select Basic -->
+                                        <div class="form-group">
+                                            <label class="control-label" for="country">Select Country</label>
+                                            {{ form.state }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="address">Address </label>
+                                            {{ form.address }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="postcode">{{ form.zip_code.label}}</label>
+                                            {{ form.zip_code }}
+                                        </div>
+                                    </div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group">
+                                            <label class="control-label" for="summernote">{{ form.description.label }} </label>
+                                            {{ form.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="aminities-form-info card-body border-top">
+                                <div class="row">
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <h3>Booking Type</h3>
+                                        {% for type in form.booking_type %}
+                                            {{ type }}
+                                        {% endfor%}
+                                    </div>
+                                    <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+                                        <h3>Booking Purpose</h3>
+                                        {% for purpose in form.booking_purpose %}
+                                            {{ purpose }}
+                                        {% endfor%}
+                                        <!-- <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" id="customCheck9">
+                                            <label class="custom-control-label" for="customCheck9"> Clean Up</label>
+                                        </div> -->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="dashboard-venue-gallery card-body border-top">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <!-- File Button -->
+                                        <div class="form-group">
+                                            <label class="control-label" for="filebutton">Browse Image</label>
+                                            {{ form.image }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="social-form-info card-body border-top">
+                                <div class="row">
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <button class="btn btn-default" type="submit">Submit New Item</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

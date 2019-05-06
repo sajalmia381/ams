@@ -7,6 +7,7 @@ from multiselectfield import MultiSelectField
 
 from ams.utils import get_random_string_generator
 
+from billing.models import BillingProfile
 
 class State(models.Model):
 
@@ -25,11 +26,32 @@ class City(models.Model):
 
 
 class BookingPurpose(models.Model):
-
+    image = models.ImageField(upload_to='booking_purpose', blank=True)
     name = models.CharField(max_length=20)
+    detail = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return self.name.capitalize()
+
+
+class VenueQuerySet(models.query.QuerySet):
+
+    def active(self):
+        return self.filter(is_active=True)
+
+    def booking_purpose_items(self, pk):
+        return self.filter(booking_purpose=pk)
+
+
+class VenueManager(models.Manager):
+    def get_queryset(self):
+        return VenueQuerySet(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().active()
+
+    def booking_purpose_items(self, pk):
+        return self.get_queryset().booking_purpose_items(pk)
 
 
 class Venue(models.Model):
@@ -43,7 +65,7 @@ class Venue(models.Model):
     # Model Field
     name = models.CharField(max_length=250)
     seating_capacity = models.PositiveIntegerField()
-    standing_capacity = models.PositiveIntegerField(default=15)
+    standing_capacity = models.PositiveIntegerField()
     address = models.CharField(max_length=300)
     state = models.ForeignKey(State, on_delete=models.SET_NULL, null=True)
     city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True, blank=True)
@@ -52,6 +74,10 @@ class Venue(models.Model):
     booking_purpose = models.ManyToManyField(BookingPurpose)
     description = models.TextField(blank=True)
     image = models.ImageField(blank=True)
+    price = models.DecimalField(decimal_places=2, max_digits=8, help_text='This price for per day')
+
+    is_active = models.BooleanField(default=True)
+    is_feature = models.BooleanField(default=False)
 
     def __str__(self):
         return self.name
@@ -67,13 +93,15 @@ class VenueBooking(models.Model):
         null=True,
         help_text="Unique Booking Id will Be auto Generate by System"
     )
-    name = models.CharField(max_length=30)
-    mobile_no = models.IntegerField(blank=True)
-    email = models.EmailField()
+    billing_profile = models.ForeignKey(BillingProfile, on_delete=models.CASCADE, blank=True, null=True)
     venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-    # booking_purposse
-    # booking_type
+    # booking_purpose = models.CharField(blank=True, null=True)
+    booking_type = models.CharField(max_length=30, choices=Venue.BOOKING_TYPE, blank=True, null=True)
     booking_date = models.DateField(auto_now=False, auto_now_add=False)
+
+    sub_total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
+    total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
+
 
     def __str__(self):
         return self.booking_id

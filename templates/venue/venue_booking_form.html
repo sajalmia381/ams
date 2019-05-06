@@ -1,0 +1,26 @@
+{% extends 'base/base-site.html' %}
+    {% block title %}Venue Booking Form{% endblock%}
+    {% block css %}
+    <style>
+    .nice-select{
+        float: inherit;
+    }
+    .help_text{
+        font-size: 12px;
+    }
+    </style>
+    {% endblock %}
+    {% block breadcrumb %}
+    {% endblock %}
+    {% block content %}
+    <form action="">
+        {{ form }}
+    </form>
+    {% endblock %}
+    {% block js %}
+    <script>
+        $( function() {
+            $("#id_booking_date").datepicker();
+        } );
+    </script>
+    {% endblock %}

@@ -1,4 +1,5 @@
 {% extends 'base/base-site.html' %}
+{% load static %}
     {% block css %}
     <style>
         .venue_filter_form .nice-select {
@@ -6,65 +7,43 @@
         }
     </style>
     {% endblock %}
-    {% block breadcrumb %}
-      <div class="page-header" data-bg-image="/static/assets/images/banner/page-header.jpg">
+    {% block banner %}
+    <div class="hero-section-fifth" data-bg-image="{% static 'assets/images/banner/au_01.jpg' %}">
         <div class="container">
             <div class="row">
-                <!-- page caption -->
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
-                    <div class="page-caption">
-                        <h1 class="page-title">Listing Venue</h1>
+                <div class="offset-xl-1 col-xl-10 offset-lg-1 col-lg-10 col-md-12 col-sm-12 col-12 mb60">
+                    <!-- search-block -->
+                    <div class="text-center">
+                        <div class="search-head">
+                            <h1 class="search-head-title text-white">Book a Auditorium for your event</h1>
+                            <p class="d-none d-xl-block d-lg-block d-sm-block text-white">Find suitable spaces for all private and corporate events</p>
+                        </div>
+                        <!-- /.search-block -->
+                        <!-- search-form -->
+                        <div class="search-form">
+                            <form class="form-row" method="get" action="{% url 'search:search' %}">
+                                <div class="col-md-10 col-sm-12 col-12">
+                                    <input type="text" name="q" class="form-control" value="{{ request.GET.q }}" placeholder="Search ...">
+                                </div>
+                                <!-- button -->
+                                <div class="col-md-2 col-sm-12 col-12">
+                                    <button class="btn btn-default btn-block" type="submit">Search</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!-- /.search-form -->
                     </div>
                 </div>
-                <!-- /.page caption -->
             </div>
         </div>
-        <!-- page caption -->
-        <div class="page-breadcrumb">
-            <div class="container">
-                <div class="row">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Home</a></li>
-                            <li class="breadcrumb-item"><a href="#" class="breadcrumb-link">Listing</a></li>
-                            <li class="breadcrumb-item active text-white" aria-current="page">Listing Gird View</li>
-                        </ol>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!-- page breadcrumb -->
     </div>
     {% endblock %}
     {% block content %}
-    <!-- filter-form -->
-    <div class="filter-form">
-        <div class="container">
-            <div class="row">
-                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                    <form class="form-row venue_filter_form" action="" method="GET">
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                            {{ filters.form.city }}
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                            {{ filters.form.booking_purpose }}
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                            {{ filters.form.booking_type }}
-                        </div>
-                        <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 ">
-                            <button class="btn btn-default btn-block" type="submit">Find Venue</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.filter-form -->
+
     <div class="content">
         <div class="container">
             <div class="row">
-                {% for obj in filters.qs %}
+                {% for obj in object_list %}
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
                     <div class="vendor-thumbnail">
                         <!-- Vendor thumbnail -->

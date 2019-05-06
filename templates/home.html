@@ -1,7 +1,6 @@
 {% extends 'base/base-site.html' %}
 {% load static %}
     {% block banner %}
-    <!-- hero-section -->
     <div class="hero-section-fifth" data-bg-image="{% static 'assets/images/banner/au_01.jpg' %}">
         <div class="container">
             <div class="row">
@@ -51,84 +50,81 @@
             </div>
         </div>
     </div>
-    <!-- /.hero-section -->
     {% endblock %}
     {% block content %}
         <!-- venue-categoris-section-->
-        <div class="space-ex-large bg-white">
+        <!-- <div class="space-ex-large bg-white">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-title">
-                            <!-- section title start-->
                             <h2 class="mb10">Most Popular Categories</h2>
                             <p>Browse our most popular category and vendor or supplier listing.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    {% for obj in booking_purpose %}
+                    {% if forloop.counter|divisibleby:4 %}
+                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
+                        <div class="vendor-categories">
+                            <div class="vendor-category-image">
+                                <a href="javascript:void(0)"><img src="{% if obj.image %}{% url 'obj.image.url' %} {% else %} {% static 'assets/images/category_placeholder.jpg' %} {% endif %}" alt=""></a>
+                            </div>
+                            <div class="vendor-categories-content">
+                                <h3 class="vendor-categories-heading"><a href="#" class="vendor-categories-name">{{ obj.name }}</a></h3>
+                                <span class="vendor-categories-count">{{ obj.venue_set.all.count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div> -->
+        <div class="space-medium bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="section-title text-center">
+                            <!-- section title start-->
+                            <h2 class="mb10">Browse Popular by Category</h2>
+                            <p>You can browse all venues by category with thumbnail image and category name.</p>
                         </div>
                         <!-- /.section title start-->
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="vendor-categories">
-                            <div class="vendor-category-image">
-                                <a href="javascript:void(0)"><img src="images/vendor-category-image.jpg" alt=""></a>
-                                <div class="vendor-thumbnail-icon-circle"> <i class="flaticon-025-wedding-cake"></i></div>
-                            </div>
-                            <div class="vendor-categories-content">
-                                <h3 class="vendor-categories-heading"><a href="#" class="vendor-categories-name">Wedding Venue</a></h3>
-                                <span class="vendor-categories-count">12</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="vendor-categories">
-                            <div class="vendor-category-image">
-                                <a href="javascript:void(0)"><img src="images/vendor-category-image-2.jpg" alt=""></a>
-                                <div class="vendor-thumbnail-icon-circle"> <i class="flaticon-008-wedding-dress"></i></div>
-                            </div>
-                            <div class="vendor-categories-content">
-                                <h3 class="vendor-categories-heading"><a href="#" class="vendor-categories-name">Wedding Dresses</a></h3>
-                                <span class="vendor-categories-count">6</span>
+                    {% for obj in booking_purpose %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                        <div class="vendor-categories-block zoomimg">
+                            <div class="vendor-categories-img"> <a href="javascript:void(0)"><img src="{% if obj.image %}{{ obj.image.url }} {% else %} {% static 'assets/images/category_placeholder.jpg' %} {% endif %}" alt=""></a></div>
+                            <div class="vendor-categories-overlay">
+                                <div class="vendor-categories-text">
+                                    <h4 class="mb0"><a href="#" class="vendor-categories-title">{{ obj.name|title }}</a></h4>
+                                    <p class="vendor-categories-numbers">{{ obj.venue_set.all.count }}</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="vendor-categories">
-                            <div class="vendor-category-image">
-                                <a href="javascript:void(0)"><img src="images/vendor-category-image-3.jpg" alt=""></a>
-                                <div class="vendor-thumbnail-icon-circle"> <i class="flaticon-038-camera"></i></div>
-                            </div>
-                            <div class="vendor-categories-content">
-                                <h3 class="vendor-categories-heading"><a href="#" class="vendor-categories-name">Wedding Photographer</a></h3>
-                                <span class="vendor-categories-count">2</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-3 col-sm-6 col-12">
-                        <div class="vendor-categories">
-                            <div class="vendor-category-image">
-                                <a href="javascript:void(0)"><img src="images/vendor-category-image-4.jpg" alt=""></a>
-                                <div class="vendor-thumbnail-icon-circle"> <i class="flaticon-033-bouquet"></i></div>
-                            </div>
-                            <div class="vendor-categories-content">
-                                <h3 class="vendor-categories-heading"><a href="#" class="vendor-categories-name">Wedding Florist</a></h3>
-                                <span class="vendor-categories-count">4</span>
-                            </div>
-                        </div>
-                    </div>
+                    {% if forloop.counter|divisibleby:7 %}
+                    </div><div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt20"><a href="#" class="btn btn-primary btn-lg">Browse all category</a></div>
+                    {% endif %}
+                    {% endfor %}
                 </div>
+                <!-- /.venue-categoris-btn -->
             </div>
-            
         </div>
-       
+
         <div class="space-ex-large">
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="section-title">
                             <!-- section title start-->
-                            <h2 class="mb10">Latest Wedding Listing</h2>
-                            <p>Find our latest wedding listing with featured listing from famous city or vendors.</p>
+                            <h2 class="mb10">Popular Venues Listing</h2>
+                            <p>Find our most popular listing with featured listing from famous city or vendors.</p>
                         </div>
                         <!-- /.section title start-->
                     </div>
@@ -137,146 +133,45 @@
             <div class="container-fluid">
                 <div class="venue-thumbnail-carousel">
                     <div class="owl-carousel owl-theme owl-venue-thumb">
+                        {% for obj in popular_venues %}
                         <div class="item">
-                            <div class="col-xl-12">
-                                <div class="vendor-thumbnail-second vendor-thumbnail">
-                                    <!-- Vendor thumbnail -->
-                                    <div class="vendor-img overlay-dark">
-                                        <!-- Vendor img -->
-                                        <a href="#" class=""><img src="images/vendor-img-1.jpg" alt="" class="img-fluid"></a>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="vendor-thumbnail">
+                                    <div class="vendor-img zoomimg">
+                                        <a href="{{ obj.get_absolute_url }}"><img src="{% if obj.image %}{{ obj.image.url }}{% endif %}" alt=""  class="img-fluid"></a>
                                         <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                                        <div class="listing-categories">
-                                            <div class="vendor-category"><a href="#"><i class="flaticon-038-camera"></i></a></div>
-                                        </div>
-                                        <div class="vendor-price-block">   <span class="vendor-price">
-                                                $150
-                                            </span>
+                                    </div>
+                                    <div class="vendor-content">
+                                        <h2 class="vendor-title"><a href="{{ obj.get_absolute_url }}" class="title">{{ obj.name|title }}</a></h2>
+                                        <p class="vendor-address"><span class="vendor-address-icon"><i class="fa fa-map-marker-alt"></i> </span> {{ obj.state }}, {{ obj.city }}</p>
+                                    </div>
+                                    <div class="vendor-meta">
+                                        <div class="vendor-meta-item vendor-meta-item-bordered">
+                                            <span class="vendor-price">
+                                        $150
+                                    </span>
                                             <span class="vendor-text">Start From</span></div>
-                                    </div>
-                                    <!-- /.Vendor img -->
-                                    <div class="vendor-content">
-                                        <!-- Vendor Content -->
-                                        <h2 class="vendor-title"><a href="#" class="title">Heading Venue Title Name</a></h2>
-                                        <p class="vendor-address"><span class="vendor-address-icon"><i class="fa fa-map-marker-alt"></i> </span> Ahmedabad, Gujarat.</p>
-                                        <div class="vendor-rating-block">
-                                            <span class="rating-star">
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rate-mute"></i>
-                                            </span>
-                                            <span class="rating-count vendor-text"><span class="rating-badge">4.5</span></span>
+                                        <div class="vendor-meta-item vendor-meta-item-bordered">
+                                            <span class="vendor-guest">
+                                        {{ obj.seating_capacity }}
+                                    </span>
+                                            <span class="vendor-text">Guest</span>
                                         </div>
+                                        <div class="vendor-meta-item vendor-meta-item-bordered">
+                                            <span class="rating-star">
+                                        <i class="fa fa-star rated"></i>
+                                        <i class="fa fa-star rated"></i>
+                                        <i class="fa fa-star rated"></i>
+                                        <i class="fa fa-star rated"></i>
+                                        <i class="fa fa-star rate-mute"></i> 
+                                        </span>
+                                            <span class="rating-count vendor-text">(20)</span></div>
                                     </div>
-                                    <!-- /.Vendor Content -->
-                                   
                                 </div>
                                 <!-- /.Vendor thumbnail -->
                             </div>
                         </div>
-                        <div class="item">
-                            <div class="col-xl-12">
-                                <div class="vendor-thumbnail-second vendor-thumbnail">
-                                    <!-- Vendor thumbnail -->
-                                    <div class="vendor-img">
-                                        <!-- Vendor img -->
-                                        <a href="#" class=""><img src="images/vendor-img-2.jpg" alt="" class="img-fluid"></a>
-                                        <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                                        <div class="listing-categories">
-                                            <div class="vendor-category"><a href="#"><i class="flaticon-038-camera"></i></a></div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor img -->
-                                    <div class="vendor-content">
-                                        <!-- Vendor Content -->
-                                        <h2 class="vendor-title"><a href="#" class="title">Heading Venue Title Name</a></h2>
-                                        <p class="vendor-address"><span class="vendor-address-icon"><i class="fa fa-map-marker-alt"></i> </span> Ahmedabad, Gujarat.</p>
-                                        <div class="vendor-rating-block">
-                                            <span class="rating-star">
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rate-mute"></i>
-                                            </span>
-                                            <span class="rating-count vendor-text"><span class="rating-badge">4.5</span></span>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor Content -->
-                                    
-                                </div>
-                                <!-- /.Vendor thumbnail -->
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="col-xl-12">
-                                <div class="vendor-thumbnail-second vendor-thumbnail">
-                                    <!-- Vendor thumbnail -->
-                                    <div class="vendor-img">
-                                        <!-- Vendor img -->
-                                        <a href="#" class=""><img src="images/vendor-img-3.jpg" alt="" class="img-fluid"></a>
-                                        <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                                        <div class="listing-categories">
-                                            <div class="vendor-category"><a href="#"><i class="flaticon-038-camera"></i></a></div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor img -->
-                                    <div class="vendor-content">
-                                        <!-- Vendor Content -->
-                                        <h2 class="vendor-title"><a href="#" class="title">Heading Venue Title Name</a></h2>
-                                        <p class="vendor-address"><span class="vendor-address-icon"><i class="fa fa-map-marker-alt"></i> </span> Ahmedabad, Gujarat.</p>
-                                        <div class="vendor-rating-block">
-                                            <span class="rating-star">
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rate-mute"></i>
-                                            </span>
-                                            <span class="rating-count vendor-text"><span class="rating-badge">4.5</span></span>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor Content -->
-                                    
-                                </div>
-                                <!-- /.Vendor thumbnail -->
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="col-xl-12">
-                                <div class="vendor-thumbnail-second vendor-thumbnail">
-                                    <!-- Vendor thumbnail -->
-                                    <div class="vendor-img">
-                                        <!-- Vendor img -->
-                                        <a href="#" class=""><img src="images/vendor-img-4.jpg" alt="" class="img-fluid"></a>
-                                        <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                                        <div class="listing-categories">
-                                            <div class="vendor-category"><a href="#"><i class="flaticon-038-camera"></i></a></div>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor img -->
-                                    <div class="vendor-content">
-                                        <!-- Vendor Content -->
-                                        <h2 class="vendor-title"><a href="#" class="title">Heading Venue Title Name</a></h2>
-                                        <p class="vendor-address"><span class="vendor-address-icon"><i class="fa fa-map-marker-alt"></i> </span> Ahmedabad, Gujarat.</p>
-                                        <div class="vendor-rating-block">
-                                            <span class="rating-star">
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rated"></i>
-                                                <i class="fa fa-star rate-mute"></i>
-                                            </span>
-                                            <span class="rating-count vendor-text"><span class="rating-badge">4.5</span></span>
-                                        </div>
-                                    </div>
-                                    <!-- /.Vendor Content -->
-                                    
-                                </div>
-                                <!-- /.Vendor thumbnail -->
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
@@ -288,99 +183,6 @@
             
         </div>
         <!-- /.venue-categoris-section-->
-        <div class="space-ex-large bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="section-title">
-                            <!-- section title start-->
-                            <h2 class="mb10">Popular Locations</h2>
-                            <p>We are able to offer you detailed information regarding romantic wedding in the following locations.</p>
-                        </div>
-                        <!-- /.section title start-->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 pr-xl-0">
-                        <div class="location-card">
-                            <div class="location-card-img location-card-img1">
-                                <img src="images/location-img-1.jpg" alt="" class="img-fluid rounded">
-                            </div>
-                            <div class="card-img-overlay text-center">
-                                <div class="location-img-content">
-                                    <h2 class="location-card-title">New York</h2>
-                                    <p class="location-vendor-count">20 Vendors</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 ">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 pr-xl-0 pb-xl-0 mb-3">
-                                <div class="location-card">
-                                    <div class="location-card-img location-card-img2"> <img src="images/location-img-3.jpg" alt="" class="img-fluid rounded"></div>
-                                    <div class="card-img-overlay text-center">
-                                        <div class="location-img-content">
-                                            <h2 class="location-card-title">Barcelona</h2>
-                                            <p class="location-vendor-count">12 Vendors</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  pr-xl-0">
-                                <div class="location-card">
-                                    <div class="location-card-img location-card-img3"> <img src="images/location-img-4.jpg" alt="" class="img-fluid rounded"></div>
-                                    <div class="card-img-overlay text-center">
-                                        <div class="location-img-content">
-                                            <h2 class="location-card-title">Paris</h2>
-                                            <p class="location-vendor-count">14 Vendors</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12">
-                        <div class="row">
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  pr-xl-0 mb-3">
-                                <div class="location-card">
-                                    <div class="location-card-img location-card-img4"> <img src="images/location-img-5.jpg" alt="" class="img-fluid rounded"></div>
-                                    <div class="card-img-overlay text-center">
-                                        <div class="location-img-content">
-                                            <h2 class="location-card-title">Tokyo</h2>
-                                            <p class="location-vendor-count">09 Vendors</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12  pr-xl-0">
-                                <div class="location-card">
-                                    <div class="location-card-img location-card-img5"> <img src="images/location-img-6.jpg" alt="" class="img-fluid rounded"></div>
-                                    <div class="card-img-overlay text-center">
-                                        <div class="location-img-content">
-                                            <h2 class="location-card-title">Chicago</h2>
-                                            <p class="location-vendor-count">10 Vendors</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-12 pr-xl-0">
-                        <div class="location-card">
-                            <div class="location-card-img location-card-img6"> <img src="images/location-img-2.jpg" alt="" class="img-fluid rounded"></div>
-                            <div class="card-img-overlay text-center">
-                                <div class="location-img-content">
-                                    <h2 class="location-card-title">Reykjavik</h2>
-                                    <p class="location-vendor-count">5 Vendors</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
         <div class="space-ex-large">
             <div class="container">
                 <div class="row">
@@ -398,10 +200,10 @@
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="how-it-block text-center">
                             <div class="how-it-block-circle">
-                                <img src="images/how-it-icon-1.png" alt="">
+                                <img src="{% static 'assets/images/how-it-icon-1.png' %}" alt="">
                             </div>
                             <div class="how-it-block-content">
-                                <h3 class="how-it-block-title">Find Local Vendor</h3>
+                                <h3 class="how-it-block-title">Find Best Venue</h3>
                                 <p class="how-it-block-descriptions">Many desktop publishing packages and web page editors now u se Lorem Ipsu m as their default model text.</p>
                             </div>
                         </div>
@@ -409,10 +211,10 @@
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="how-it-block text-center">
                             <div class="how-it-block-circle">
-                                <img src="images/how-it-icon-2.png" alt="">
+                                <img src="{% static 'assets/images/how-it-icon-2.png' %}" alt="">
                             </div>
                             <div class="how-it-block-content">
-                                <h3 class="how-it-block-title">Contact Vendor</h3>
+                                <h3 class="how-it-block-title">Book Venue</h3>
                                 <p class="how-it-block-descriptions">Many desktop publishing packages and web page editors now u se Lorem Ipsu m as their default model text.</p>
                             </div>
                         </div>
@@ -420,100 +222,13 @@
                     <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-12">
                         <div class="how-it-block text-center">
                             <div class="how-it-block-circle">
-                                <img src="images/how-it-icon-3.png" alt="">
+                                <img src="{% static 'assets/images/how-it-icon-3.png' %}" alt="">
                             </div>
                             <div class="how-it-block-content">
-                                <h3 class="how-it-block-title">Save Your Date</h3>
+                                <h3 class="how-it-block-title">Make Great Event</h3>
                                 <p class="how-it-block-descriptions">Many desktop publishing packages and web page editors now u se Lorem Ipsu m as their default model text.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            
-        </div>
-        <div class="space-ex-large bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xl-12  col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="section-title">
-                            <!-- section title start-->
-                            <h2 class="mb10">Latest Articles and Tips</h2>
-                            <p>Every bride wants to look her best on her wedding day. A few pre-wedding beauty tips for brides.
-                            </p>
-                        </div>
-                        <!-- /.section title start-->
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="post-block">
-                            <!-- post vertical block -->
-                            <div class="meta-date-circle">
-                                <span class="meta-date">25 <small>Oct</small></span>
-                            </div>
-                            <div class="post-img zoomimg rounded-top">
-                                <a href="#"><img src="images/post-img-1.jpg" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="post-content text-left rounded-0">
-                                <div class="post-meta-category"><a href="#">Real Wedding</a></div>
-                                <h3 class="mb-0"><a href="#" class="post-title">Top 10 Wedding Tips for Groom & Bride </a></h3>
-                                <div class="post-second-footer">
-                                    <p class="meta">
-                                        <span class="meta-posted-by"><i class="fas fa-user-circle"></i> <a href="#">Admin</a></span>
-                                        <span class="meta-comments">Comments</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="post-block">
-                            <!-- post vertical block -->
-                            <div class="meta-date-circle">
-                                <span class="meta-date">25 <small>Oct</small></span>
-                            </div>
-                            <div class="post-img zoomimg rounded-top">
-                                <a href="#"><img src="images/post-img-2.jpg" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="post-content text-left rounded-0">
-                                <div class="post-meta-category"><a href="#">Florist</a></div>
-                                <h3 class="mb-0"><a href="#" class="post-title">How to Plan a Wedding
-                                        Step by Step Guide </a></h3>
-                                <div class="post-second-footer">
-                                    <p class="meta">
-                                        <span class="meta-posted-by"><i class="fas fa-user-circle"></i> <a href="#">Admin</a></span>
-                                        <span class="meta-comments">Comments</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="post-block">
-                            <!-- post vertical block -->
-                            <div class="meta-date-circle">
-                                <span class="meta-date">25 <small>Oct</small></span>
-                            </div>
-                            <div class="post-img zoomimg rounded-top">
-                                <a href="#"><img src="images/post-img-3.jpg" alt="" class="img-fluid"></a>
-                            </div>
-                            <div class="post-content text-left rounded-0">
-                                <div class="post-meta-category"><a href="#">Wedding Planning</a></div>
-                                <h3 class="mb-0"><a href="#" class="post-title">Nullam leoem ipsum commodo elitac </a></h3>
-                                <div class="post-second-footer">
-                                    <p class="meta">
-                                        <span class="meta-posted-by"><i class="fas fa-user-circle"></i> <a href="#">Admin</a></span>
-                                        <span class="meta-comments">Comments</span>
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-6 col-sm-12 col-12 text-center mt30">
-                        <a href="#" class="btn btn-default">View More News</a>
                     </div>
                 </div>
             </div>

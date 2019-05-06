@@ -21,7 +21,7 @@ admin.site.register(Venue, VenueAdmin)
 
 
 class VenueBookingAdmin(admin.ModelAdmin):
-    list_display = ['booking_id', 'email', 'venue']
+    list_display = ['booking_id', 'venue']
     readonly_fields = ('booking_id', )
     # formfield_overrides = {
     #     models.DateField: {'widget': }

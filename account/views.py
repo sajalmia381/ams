@@ -41,19 +41,14 @@ class LoginView(generic.FormView):
         if auth is not None:
             login(request, auth)
             user_logged_in.send(auth.__class__, instance=auth, request=request)
-            try:
-                del request.session['guest_email_id']
-            except:
-                pass
             if is_safe_url(redirect_path, request.get_host()):
                 return redirect(redirect_path)
             else:
-                pass
-                # return redirect('page:index')
+                return redirect('venue:homeUrl')
             return redirect('account:login')
         else:
             # messages.add_message(request, messages.error, 'Password Or Username not Valid')
-            return redirect('account:login')
+            return redirect('venue:homeUrl')
 
     def form_invalid(self, form):
         print(form)

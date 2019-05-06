@@ -1,8 +1,10 @@
 # Created by https://www.gitignore.io
 
+# Custom
 **/**/migrations
 **/migrations/
 .idea/
+media
 
 ### OSX ###
 .DS_Store

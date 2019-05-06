@@ -40,7 +40,10 @@ INSTALLED_APPS = [
 
     'account',
     'venue',
+    'search',
+    'billing',
 
+    'django_filters',
     'multiselectfield',
 ]
 
