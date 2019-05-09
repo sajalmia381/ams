@@ -102,7 +102,6 @@ class VenueBooking(models.Model):
     sub_total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
 
-
     def __str__(self):
         return self.booking_id
 
