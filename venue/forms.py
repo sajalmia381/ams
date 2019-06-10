@@ -1,5 +1,5 @@
 from django import forms
-from .models import (VenueBooking, Venue)
+from .models import Venue
 
 
 class VenueCreateForm(forms.ModelForm):
@@ -25,9 +25,3 @@ class VenueCreateForm(forms.ModelForm):
             'booking_purpose': forms.CheckboxSelectMultiple()
         }
 
-
-class VenueBookingForm(forms.ModelForm):
-    class Meta:
-        model = VenueBooking
-        # fields = ('booking_type', 'booking_date', )
-        fields = '__all__'

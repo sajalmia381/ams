@@ -1,0 +1,8 @@
+Hello {{ email }},
+                    We review your quote, you can booking this Venue.
+
+You can complate Booking with Payment
+Link: {{ confirm_link }}
+
+Thanks you
+AMS

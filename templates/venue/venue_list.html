@@ -4,6 +4,23 @@
         .venue_filter_form .nice-select {
             width: 100%;
         }
+        .price_range_filter{
+            border: 1px solid #e8e8e8;
+            border-radius: 2px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .075);
+            height: 50px;
+            line-height: 40px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0 15px;
+        }
+        .price_range_filter input{
+            max-width: 50%;
+            height: 30px;
+            text-align: center;
+        }
     </style>
     {% endblock %}
     {% block breadcrumb %}
@@ -50,7 +67,10 @@
                             {{ filters.form.booking_purpose }}
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
-                            {{ filters.form.booking_type }}
+                            <div class="price_range_filter">
+                                {{ filters.form.price__gt }}
+                                {{ filters.form.price__lt }}
+                            </div>
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12 ">
                             <button class="btn btn-default btn-block" type="submit">Find Venue</button>
@@ -66,38 +86,7 @@
             <div class="row">
                 {% for obj in filters.qs %}
                 <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                    <div class="vendor-thumbnail">
-                        <!-- Vendor thumbnail -->
-                        <div class="vendor-img zoomimg">
-                            <!-- Vendor img -->
-                            {% if obj.image %}
-                            <a href="{{ obj.get_absolute_url }}"><img src="{{ obj.image.url }}" alt="" class="img-fluid"></a>
-                            {% endif %}
-                            <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                        </div>
-                        <!-- /.Vendor img -->
-                        <div class="vendor-content">
-                            <!-- Vendor Content -->
-                            <h2 class="vendor-title"><a href="{{ obj.get_absolute_url }}" class="title">{{ obj.name }}</a></h2>
-                            <p class="vendor-address">{{ obj.state }}, {{ obj.city }}.</p>
-                        </div>
-                        <div class="vendor-meta">
-                            <div class="vendor-meta-item vendor-meta-item-bordered">
-                                <span class="vendor-price">
-                                    ${{ obj.price }}
-                                </span>
-                                <span class="vendor-text">Per Day</span>
-                            </div>
-                            <div class="vendor-meta-item vendor-meta-item-bordered">
-                                <span class="vendor-guest">
-                                    {{ obj.seating_capacity }}
-                                </span>
-                                <span class="vendor-text">Seating Capacity</span>
-                            </div>
-                        </div>
-                        <!-- /.Vendor Content -->
-                    </div>
-                    <!-- /.Vendor thumbnail -->
+                    {% include 'snippets/venue_box.html' %}
                 </div>
                 {% endfor %}
             </div>

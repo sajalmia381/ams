@@ -12,39 +12,6 @@
                             <p class="d-none d-xl-block d-lg-block d-sm-block text-white">Find suitable spaces for all private and corporate events</p>
                         </div>
                         <!-- /.search-block -->
-                        <!-- search-form -->
-                        <div class="search-form">
-                            <form class="form-row">
-                                <div class="col-xl-5 col-lg-5 col-md-4 col-sm-12 col-12">
-                                    <!-- select -->
-                                    <select class="wide">
-                                        <option value="Venue Type">Vendor Type</option>
-                                        <option value="Venue">Venue</option>
-                                        <option value="Florist">Florist</option>
-                                        <option value="Cake">Cake</option>
-                                        <option value="Photographer">Photographer</option>
-                                        <option value="Catering">Catering</option>
-                                        <option value="Dress">Dress</option>
-                                    </select>
-                                </div>
-                                <div class="col-xl-5 col-lg-5 col-md-4 col-sm-12 col-12">
-                                    <!-- select -->
-                                    <select class="wide">
-                                        <option value="Ahmedabad" data-display="Ahmedabad">Ahmedabad</option>
-                                        <option value="Surat">Surat</option>
-                                        <option value="Rajkot">Rajkot</option>
-                                        <option value="Vadodara">Vadodara</option>
-                                        <option value="Vapi">Vapi</option>
-                                        <option value="Bhavnagar">Bhavnagar</option>
-                                    </select>
-                                </div>
-                                <!-- button -->
-                                <div class="col-xl-2 col-lg-2 col-md-4 col-sm-12 col-12">
-                                    <button class="btn btn-default btn-block" type="submit">Search</button>
-                                </div>
-                            </form>
-                        </div>
-                        <!-- /.search-form -->
                     </div>
                 </div>
             </div>
@@ -82,40 +49,6 @@
                 </div>
             </div>
         </div> -->
-        <div class="space-medium bg-white">
-            <div class="container">
-                <div class="row">
-                    <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
-                        <div class="section-title text-center">
-                            <!-- section title start-->
-                            <h2 class="mb10">Browse Popular by Category</h2>
-                            <p>You can browse all venues by category with thumbnail image and category name.</p>
-                        </div>
-                        <!-- /.section title start-->
-                    </div>
-                </div>
-                <div class="row">
-                    {% for obj in booking_purpose %}
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                        <div class="vendor-categories-block zoomimg">
-                            <div class="vendor-categories-img"> <a href="javascript:void(0)"><img src="{% if obj.image %}{{ obj.image.url }} {% else %} {% static 'assets/images/category_placeholder.jpg' %} {% endif %}" alt=""></a></div>
-                            <div class="vendor-categories-overlay">
-                                <div class="vendor-categories-text">
-                                    <h4 class="mb0"><a href="#" class="vendor-categories-title">{{ obj.name|title }}</a></h4>
-                                    <p class="vendor-categories-numbers">{{ obj.venue_set.all.count }}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    {% if forloop.counter|divisibleby:7 %}
-                    </div><div class="row">
-                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt20"><a href="#" class="btn btn-primary btn-lg">Browse all category</a></div>
-                    {% endif %}
-                    {% endfor %}
-                </div>
-                <!-- /.venue-categoris-btn -->
-            </div>
-        </div>
 
         <div class="space-ex-large">
             <div class="container">
@@ -175,13 +108,48 @@
                     </div>
                     <div class="row">
                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center">
-                            <a href="#" class="btn btn-primary">View All Listing</a>
+                            <a href="{% url 'venue:venueListUrl' %}" class="btn btn-primary">View All Venue</a>
                         </div>
                     </div>
                 </div>
             </div>
             
         </div>
+        <div class="space-medium bg-white">
+            <div class="container">
+                <div class="row">
+                    <div class="offset-xl-2 col-xl-8 offset-lg-2 col-lg-8 col-md-12 col-sm-12 col-12">
+                        <div class="section-title text-center">
+                            <!-- section title start-->
+                            <h2 class="mb10">Browse Popular by Category</h2>
+                            <p>You can browse all venues by category with thumbnail image and category name.</p>
+                        </div>
+                        <!-- /.section title start-->
+                    </div>
+                </div>
+                <div class="row">
+                    {% for obj in booking_purpose %}
+                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                        <div class="vendor-categories-block zoomimg">
+                            <div class="vendor-categories-img"> <a href="javascript:void(0)"><img src="{% if obj.image %}{{ obj.image.url }} {% else %} {% static 'assets/images/category_placeholder.jpg' %} {% endif %}" alt=""></a></div>
+                            <div class="vendor-categories-overlay">
+                                <div class="vendor-categories-text">
+                                    <h4 class="mb0"><a href="#" class="vendor-categories-title">{{ obj.name|title }}</a></h4>
+                                    <p class="vendor-categories-numbers">{{ obj.venue_set.all.count }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% if forloop.counter|divisibleby:7 %}
+                    </div><div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 text-center mt20"><a href="#" class="btn btn-primary btn-lg">Browse all category</a></div>
+                    {% endif %}
+                    {% endfor %}
+                </div>
+                <!-- /.venue-categoris-btn -->
+            </div>
+        </div>
+
         <!-- /.venue-categoris-section-->
         <div class="space-ex-large">
             <div class="container">
@@ -190,7 +158,7 @@
                         <div class="section-title">
                             <!-- section title start-->
                             <h2 class="mb10">How it works</h2>
-                            <p>Simple three easy step to setting up your free! wedding account and hire vendor for your special day.
+                            <p>Simple three easy step to setting up your free! Booking account and hire vendor for your special day.
                             </p>
                         </div>
                         <!-- /.section title start-->

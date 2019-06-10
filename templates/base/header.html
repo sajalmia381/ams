@@ -6,6 +6,7 @@
 {% url 'account:logout' as LogoutUrl %}
 {% url 'account:login' as LoginUrl %}
 {% url 'account:registration' as RegistrationUrl %}
+{% url 'account:dashboard' as dashboardUrl %}
 
 {% url 'venue:venueCreate' as venueCreateUrl %}
 <div class="header-top">
@@ -91,7 +92,7 @@
                       {% if request.user.is_authenticated %}
 
                       <a href="{{ LogoutUrl }}" class="btn btn-default btn-sm mr-1">Logout</a>
-                      <a href="" class="btn btn-primary btn-sm">Dashboard</a>
+                      <a href="{{ dashboardUrl }}" class="btn btn-primary btn-sm">Dashboard</a>
                       {% else %}
                       <a href="{{ LoginUrl }}" class="btn btn-default btn-sm mr-1">Login</a>
                       <a href="{{ RegistrationUrl }}" class="btn btn-primary btn-sm">Registration</a>

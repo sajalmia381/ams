@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'venue',
     'search',
     'billing',
-
+    'booking',
+    'stripe',
+    
     'django_filters',
     'multiselectfield',
 ]
@@ -141,3 +143,29 @@ STATIC_ROOT = os.path.join(os.path.dirname(BASE_DIR), 'static')
 MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+
+# Stripe
+STRIPE_PUB_KEY = 'pk_test_l8kFuyiM5z2PfKDi5A3V1Di400KhscEEGc'
+STRIPE_SECRET_KEY = 'sk_test_zHe2wZES61XlUKWWM9yUqk2P00GCKl0hWw'
+
+
+# for mail auth
+EMAIL_HOST = 'smtp.gmail.com'  # For GMail Only
+EMAIL_HOST_USER = 'noman35-1111@diu.edu.bd '
+EMAIL_HOST_PASSWORD = 'diu351111'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'AMS <sajaluser381@gmail.com>'
+
+# let's encrypt SSL/TLS
+
+# CORS_REPLACE_HTTPS_REFERER = False
+# HOST_SCHEME = "http://"
+# SECURE_PROXY_SSL_HEADER = None
+# SECURE_SSL_REDIRECT = False
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SECURE_HSTS_SECONDS = None
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SECURE_FRAME_DENY = False

@@ -23,6 +23,7 @@ urlpatterns = [
     path('', include('account.urls', namespace='account')),
     path('', include('venue.urls', namespace='venue')),
     path('', include('search.urls', namespace='search')),
+    path('', include('booking.urls', namespace='booking'))
 ]
 
 if settings.DEBUG:

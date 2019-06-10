@@ -9,6 +9,7 @@ from ams.utils import get_random_string_generator
 
 from billing.models import BillingProfile
 
+
 class State(models.Model):
 
     name = models.CharField(max_length=25)
@@ -84,31 +85,3 @@ class Venue(models.Model):
 
     def get_absolute_url(self):
         return reverse('venue:venueDetailUrl', kwargs={'pk': self.pk})
-
-
-class VenueBooking(models.Model):
-    booking_id = models.CharField(
-        max_length=15,
-        blank=True,
-        null=True,
-        help_text="Unique Booking Id will Be auto Generate by System"
-    )
-    billing_profile = models.ForeignKey(BillingProfile, on_delete=models.CASCADE, blank=True, null=True)
-    venue = models.ForeignKey(Venue, on_delete=models.CASCADE)
-    # booking_purpose = models.CharField(blank=True, null=True)
-    booking_type = models.CharField(max_length=30, choices=Venue.BOOKING_TYPE, blank=True, null=True)
-    booking_date = models.DateField(auto_now=False, auto_now_add=False)
-
-    sub_total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
-    total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
-
-    def __str__(self):
-        return self.booking_id
-
-
-def booking_id_pre_save(sender, instance, *args, **kwargs):
-    if instance.booking_id is None:
-        instance.booking_id = get_random_string_generator()
-
-
-pre_save.connect(booking_id_pre_save, sender=VenueBooking)

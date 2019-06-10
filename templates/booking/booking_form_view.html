@@ -1,0 +1,65 @@
+{% extends 'base/base-site.html' %}
+    {% block title %}Venue Booking{% endblock %}
+    {% block css %}
+    <style>
+        .costing_list li{
+            padding: 5px 0;
+        }
+        .costing_list h4{
+            margin-bottom: 0;
+        }
+        .costing_list li:last-child{
+            border-top: 1px solid #ddd;
+            margin-top: 10px;
+        }
+        #id_total,
+        #id_sub_total{
+            width: 70px;
+        }
+    </style>
+    {% endblock %}
+    {% block breadcrumb %}
+
+    {% endblock %}
+    {% block content %}
+    <section class="my-5 py-5">
+        <div class="container">
+
+            <form action="" method="POST">
+            {% csrf_token %}
+ 
+            {{ form.errors }}
+            {{ form.non_field_errors }}
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        <h5 class="card-header">Booking Details</h5>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="{{ form.quote.auto_id }}">{{ form.quote.label }} ID :</label>
+                                {{ form.quote }}
+                            </div>
+                            <div class="form-group">
+                                <label for="{{ form.billing_profile.auto_id }}">{{ form.billing_profile.label }} :</label>
+                                {{ form.billing_profile }}
+                            </div>
+                                <!-- {{ form.as_p }} -->
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-unstyled costing_list mb-0">
+                                <li class="d-flex justify-content-between"><h4>Sub Total: </h4> <h4>{{ form.sub_total }}</h4></li>
+                                <li class="d-flex justify-content-between"><h4>Total: </h4> <h4>{{ form.total }}</h4></li>
+                                <li class="d-flex justify-content-between"><button class="btn" type="submit">Pay Now</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </form>
+        </div>
+    </section>
+    {% endblock %}

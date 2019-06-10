@@ -1,0 +1,31 @@
+<div class="vendor-thumbnail">
+        <!-- Vendor thumbnail -->
+        <div class="vendor-img zoomimg">
+            <!-- Vendor img -->
+            {% if obj.image %}
+            <a href="{{ obj.get_absolute_url }}"><img src="{{ obj.image.url }}" alt="" class="img-fluid"></a>
+            {% endif %}
+            <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
+        </div>
+        <!-- /.Vendor img -->
+        <div class="vendor-content">
+            <!-- Vendor Content -->
+            <h2 class="vendor-title"><a href="{{ obj.get_absolute_url }}" class="title">{{ obj.name }}</a></h2>
+            <p class="vendor-address">{{ obj.state }}, {{ obj.city }}.</p>
+        </div>
+        <div class="vendor-meta">
+            <div class="vendor-meta-item vendor-meta-item-bordered">
+                <span class="vendor-price">
+                    ${{ obj.price }}
+                </span>
+                <span class="vendor-text">Per Day</span>
+            </div>
+            <div class="vendor-meta-item vendor-meta-item-bordered">
+                <span class="vendor-guest">
+                    {{ obj.seating_capacity }}
+                </span>
+                <span class="vendor-text">Seating Capacity</span>
+            </div>
+        </div>
+        <!-- /.Vendor Content -->
+    </div>

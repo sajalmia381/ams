@@ -5,6 +5,28 @@
             max-width: 50px;
             font-size: 14px;
         }
+        ._booking_form_in_details .nice-select{
+            float: none;
+        }
+        ._booking_form_in_details input {
+            display: block;
+            width: 100%;
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #252328;
+            background-color: #fff;
+            background-image: none;
+            border: 1px solid #e8e8e8;
+            border-radius: 2px;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .050);
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .050);
+            -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+            -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+        }
+        .sidebar-venue{
+            position: relative;
+        }
     </style>
     {% endblock%}
     {% block content %}
@@ -25,7 +47,6 @@
                         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-12 col-12">
                             <div class="vendor-head text-left">
                                 <h2 class="mb10">{{ object.name }}</h2>
-                                <p class="vendor-address">{{ object.address }}<a href="#location" class="btn-secondary-link ml-2">View Map</a> </p>
                             </div>
                         </div>
                         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12">
@@ -35,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="vendor-meta bg-white border mb-5 ">
+                <div class="vendor-meta bg-white border">
                     <div class="vendor-meta-item vendor-meta-item-bordered">
                         <span class="vendor-price">
                                         ${{ object.price }}
@@ -64,6 +85,21 @@
                         <span class="rating-count vendor-text">(20)</span>
                     </div>
                 </div>
+                <div class="vendor-meta bg-white border mb-5 ">
+                    <div class="vendor-meta-item vendor-meta-item-bordered">
+                        <span class="vendor-price">
+                                        {{ object.address }}
+                                    </span>
+                        <span class="vendor-text"><a href="#location" class="btn-secondary-link ml-2">View Map</a></span></div>
+                    <div class="vendor-meta-item vendor-meta-item-bordered">
+                        <span class="vendor-guest">
+                            {% for type in object.booking_type %}
+                            {{ forloop.counter }}.{{ type|title }} 
+                            {% endfor %}
+                        </span>
+                        <span class="vendor-text">Booking Session</span>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="vendor-content-wrapper">
@@ -73,37 +109,42 @@
                         <!--vendor-details -->
                        
                         <div class="">
-                                                        <!-- aminities-block -->
-                                                        <div class="card border card-shadow-none">
-                                                                <h3 class="card-header bg-white">Best for Booking Purpose</h3>
-                                                                <div class="card-body">
-                                                                    <div class="row">
-                                                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                                                            <div class="animities-list">
-                                                                                <ul class="list-unstyled arrow">
-                                                                                    {% for purpose in object.booking_purpose.all %}
-                                                                                    <li>{{ purpose }}</li>
-                                                                                    {% endfor %}
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-                                                                            <div class="animities-list">
-                                                                                <ul class="list-unstyled arrow">
-                                                                                    <li> Parking</li>
-                                                                                    <li>Pet-friendly </li>
-                                                                                    <li>Towels supplied </li>
-                                                                                    <li>TV</li>
-                                                                                    <li>Washing machine</li>
-                                                                                    <li>Wheelchair</li>
-                                                                                    <li>Access Wifi</li>
-                                                                                </ul>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <!-- /.aminities-block -->
+                        <!-- aminities-block -->
+                        <div class="card border card-shadow-none">
+                                <h3 class="card-header bg-white">Best for Booking Purpose</h3>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                            <div class="animities-list">
+                                                <ul class="list-unstyled arrow">
+
+                                                    {% for purpose in object.booking_purpose.all %}
+                                                            
+
+                                                        {% if forloop.counter|divisibleby:"2" %}
+                                                        {% else%}
+                                                        <li>{{ purpose }}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
+                                            <div class="animities-list">
+                                                <ul class="list-unstyled arrow">
+                                                    {% for purpose in object.booking_purpose.all %}
+                                                        
+                                                        {% if forloop.counter|divisibleby:"2" %}
+                                                        <li>{{ purpose }}</li>
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.aminities-block -->
                             <div class="card border card-shadow-none">
                                 <h3 class="card-header bg-white">About Venue</h3>
                                 <div class="card-body">
@@ -290,114 +331,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- /.review-content -->
-                        <!-- review-form -->
-                        <!-- /.review-block -->
-                        <div class="card border card-shadow-none leave-review">
-                            <div class="card-header bg-white mb0">
-                                <h3 class="mb0">Write Your Reviews</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="review-rating-select">
-                                    <div class="mb10">
-                                        <span class="text-dark">Quality Service</span>
-                                        <span id="rateYo1"></span>
-                                    </div>
-                                    <div class="mb10">
-                                        <span class="text-dark">Facilities</span>
-                                        <span id="rateYo2"></span>
-                                    </div>
-                                    <div class="mb10">
-                                        <span class="text-dark">Staff</span>
-                                        <span id="rateYo3"></span>
-                                    </div>
-                                    <div class="mb10">
-                                        <span class="text-dark">Flexibility</span>
-                                        <span id="rateYo4"></span>
-                                    </div>
-                                    <div class="mb10">
-                                        <span class="text-dark">Value of money</span>
-                                        <span id="rateYo5"></span>
-                                    </div>
-                                </div>
-                                <form>
-                                    <div class="row">
-                                        <!-- Textarea -->
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 mt30">
-                                            <div class="form-group">
-                                                <label class="control-label" for="review">Write Your Review</label>
-                                                <textarea class="form-control" id="review" name="review" rows="5" placeholder="Write Review"></textarea>
-                                            </div>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="name">Name</label>
-                                                <input id="name" name="name" type="text" placeholder="Name" class="form-control input-md" required="">
-                                            </div>
-                                        </div>
-                                        <!-- Text input-->
-                                        <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
-                                            <div class="form-group">
-                                                <label class="control-label" for="email">Email</label>
-                                                <input id="email" name="email" type="text" placeholder="Email" class="form-control input-md" required="">
-                                            </div>
-                                        </div>
-                                        <!-- Button -->
-                                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                                            <div class="form-group">
-                                                <button id="submit" name="submit" class="btn btn-default">Submit review</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <!-- /.review-form -->
-                        <!-- location -->
-                        <div class="card border card-shadow-none">
-                            <div class="card-header bg-white mb0">
-                                <h3 class="mb0">Location - Map</h3>
-                            </div>
-                            <div class="card-body">
-                                <div id="map"></div>
-                            </div>
-                        </div>
                     </div>
                     <!-- /.location -->
                     <!-- list-sidebar -->
                     <div class="col-xl-4 col-lg-4 col-md-5 col-sm-12 col-12">
                         <div class="sidebar-venue">
-                            <table class="c_side table table-bordered mb-5">
-                                <tbody>
-                                    <tr>
-                                        <td>Seating Capacity</td>
-                                        <td class="venue-highlight-meta">{{ object.seating_capacity }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Standing Capacity</td>
-                                        <td class="venue-highlight-meta">{{ object.standing_capacity }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Address</td>
-                                        <td class="venue-highlight-meta">{{ object.address }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td>Booking Session</td>
-                                        <td class="venue-highlight-meta">{% for type in object.booking_type %}{{ type }}, {% endfor%}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Pricing {{ object.booking_type.all }}</td>
-                                        <td class="venue-highlight-meta">Start from ${{ object.price }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td class="venue-highlight-meta"><a href="{% url 'venue:venueBooking' pk=object.pk %}" class="btn btn-success">Book Now</a></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <!-- social-media -->
+                            <form class="_booking_form_in_details mb-5" action="" method="POST">
+                                {% csrf_token %}
+                                {{ form.as_p }}
+                                <button class="btn btn-primary btn-block" type="submit">Requet For Quote</button>
+                            </form>
                             <div class="mb30">
                                 <h4 class="widget-title">Share this </h4>
                                 <div class="social-icons">
@@ -421,130 +364,15 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <h2>Similar Vendor</h2>
+                        <h2>Similar Venue In Related City</h2>
                     </div>
                 </div>
                 <div class="row">
+                    {% for obj in similar_city_objects.all %}
                     <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="vendor-thumbnail">
-                            <!-- Vendor thumbnail -->
-                            <div class="vendor-img zoomimg">
-                                <!-- Vendor img -->
-                                <a href="#"><img src="images/vendor-img-1.jpg" alt="" class="img-fluid"></a>
-                                <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                            </div>
-                            <!-- /.Vendor img -->
-                            <div class="vendor-content">
-                                <!-- Vendor Content -->
-                                <h2 class="vendor-title"><a href="#" class="title">Wedding Venue Title Name</a></h2>
-                                <p class="vendor-address">Ahmedabad, Gujarat.</p>
-                            </div>
-                            <div class="vendor-meta">
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-price">
-                                        $150
-                                    </span>
-                                    <span class="vendor-text">Start From</span></div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-guest">
-                                        120+
-                                    </span>
-                                    <span class="vendor-text">Guest</span>
-                                </div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="rating-star">
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rate-mute"></i> 
-                                        </span>
-                                    <span class="rating-count vendor-text">(20)</span></div>
-                            </div>
-                            <!-- /.Vendor Content -->
-                        </div>
-                        <!-- /.Vendor thumbnail -->
+                        {% include 'snippets/venue_box.html' %}
                     </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="vendor-thumbnail">
-                            <!-- Vendor thumbnail -->
-                            <div class="vendor-img zoomimg">
-                                <!-- Vendor img -->
-                                <a href="#"><img src="images/vendor-img-2.jpg" alt=""  class="img-fluid"></a>
-                                <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                            </div>
-                            <!-- /.Vendor img -->
-                            <div class="vendor-content">
-                                <!-- Vendor Content -->
-                                <h2 class="vendor-title"><a href="#" class="title">Wedding Venue Title Name</a></h2>
-                                <p class="vendor-address">Surat, Gujarat</p>
-                            </div>
-                            <!-- /.Vendor Content -->
-                            <div class="vendor-meta">
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-price">
-                                        $150
-                                    </span>
-                                    <span class="vendor-text">Start From</span></div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-guest">
-                                        120+
-                                    </span>
-                                    <span class="vendor-text">Guest</span>
-                                </div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="rating-star">
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rate-mute"></i> 
-                                        </span>
-                                    <span class="rating-count vendor-text">(20)</span></div>
-                            </div>
-                        </div>
-                        <!-- /.Vendor thumbnail -->
-                    </div>
-                    <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6 col-12">
-                        <div class="vendor-thumbnail">
-                            <!-- Vendor thumbnail -->
-                            <div class="vendor-img zoomimg">
-                                <!-- Vendor img -->
-                                <a href="#"><img src="images/vendor-img-3.jpg" alt=""  class="img-fluid"></a>
-                                <div class="wishlist-sign"><a href="#" class="btn-wishlist"><i class="fa fa-heart"></i></a></div>
-                            </div>
-                            <!-- /.Vendor img -->
-                            <div class="vendor-content">
-                                <!-- Vendor Content -->
-                                <h2 class="vendor-title"><a href="#" class="title">Wedding Venue Title Name</a></h2>
-                                <p class="vendor-address">Rajkot, Gujarat</p>
-                            </div>
-                            <!-- /.Vendor Content -->
-                            <div class="vendor-meta">
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-price">
-                                        $150
-                                    </span>
-                                    <span class="vendor-text">Start From</span></div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="vendor-guest">
-                                        120+
-                                    </span>
-                                    <span class="vendor-text">Guest</span>
-                                </div>
-                                <div class="vendor-meta-item vendor-meta-item-bordered">
-                                    <span class="rating-star">
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rated"></i>
-                                        <i class="fa fa-star rate-mute"></i> 
-                                        </span>
-                                    <span class="rating-count vendor-text">(20)</span></div>
-                            </div>
-                        </div>
-                        <!-- /.Vendor thumbnail -->
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

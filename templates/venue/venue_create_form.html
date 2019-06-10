@@ -26,7 +26,7 @@
                 <div class="card">
                     <div class="card-header"> <h4 class="mb0">About Venue</h4></div>
                     <div class="">
-                        <form action="{% url 'venue:venueCreate' %}" method="POST">
+                        <form action="{% url 'venue:venueCreate' %}" method="POST" enctype='multipart/form-data'>
                             {% csrf_token %}
                             <!-- Form Name -->
                             <div class="venue-form-info card-body">
@@ -35,20 +35,20 @@
                                     <!-- Text input-->
                                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="{{ form.name.label_id }}">{{ form.name.label }}</label>
+                                            <label class="control-label" for="{{ form.name.auto_id }}">{{ form.name.label }}</label>
                                             {{ form.name }}
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <!-- Select Basic -->
                                         <div class="form-group">
-                                            <label class="control-label" for="Category">Category</label>
+                                            <label class="control-label" for="{{ form.seating_capacity.auto_id }}">{{ form.seating_capacity.label|title }}</label>
                                             {{ form.seating_capacity }}
                                         </div>
                                     </div>
                                     <div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
                                         <div class="form-group">
-                                            <label class="control-label" for="seat">Seat Capacity</label>
+                                            <label class="control-label" for="{{ form.standing_capacity.auto_id }}">{{ form.standing_capacity.label|title }}</label>
                                             {{ form.standing_capacity }}
                                         </div>
                                     </div>

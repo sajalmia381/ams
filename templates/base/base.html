@@ -37,6 +37,9 @@
           .vendor-form{
             padding: 120px 0;
           }
+          .nice-select{
+            float: none;
+          }
         </style>
         {% block css %}
         {% endblock %}
@@ -77,6 +80,10 @@
                   background: 'url(' + img + ')'
                 });
               });
+              var dateInput = $('#id_booking_date');
+
+              dateInput.attr("autocomplete","off");
+              dateInput.datepicker();
           })(jQuery);
         </script>
         {% block js %}

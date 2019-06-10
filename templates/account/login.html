@@ -4,6 +4,18 @@
 {% block title %}Login{% endblock %}
 
 {% block css %}
+<style>
+    .errorlist{
+        padding-left: 0;
+        list-style: none;
+    }
+    .errorlist li {
+        color: red;
+        line-height: 22px;
+        font-size: 12px;
+        text-align: right;
+    }
+</style>
 {% endblock %}
 
 {% block js %}
@@ -47,15 +59,22 @@
                                             <!-- Text input-->
                                             <div class="form-group">
                                                 {{ form.email }}
+                                                {% if form.email.errors %}
+                                                {{ form.email.errors }}
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <!-- Text input-->
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                             <div class="form-group service-form-group">
                                                 {{ form.password }}
+                                                {% if form.password.errors %}
+                                                {{ form.password.errors }}
+                                                {% endif %}
                                             </div>
                                         </div>
                                         <!--buttons -->
+                                        
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                             <button value="login" type="submit" name="singlebutton" class="btn btn-default">Login</button>
                                         </div>
