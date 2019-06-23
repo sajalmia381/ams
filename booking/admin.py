@@ -5,7 +5,6 @@ from django.template.loader import get_template
 from django import template
 
 from .models import VenueBooking, Cart, Quote
-
 admin.site.register(VenueBooking)
 
 admin.site.register(Cart)

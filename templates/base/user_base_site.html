@@ -29,6 +29,7 @@
 </head>
 {% url 'booking:quote_list' as quoteListUrl %}
 {% url 'account:dashboard' as dashboardUrl %}
+{% url 'account:booked_list' as bookedListUrl %}
 <body class="body-bg">
      <div class="dashboard-header">
         <div class="container-fluid">
@@ -128,7 +129,7 @@
                     <li class="{% if request.path == dashboardUrl %}active{% endif %}"><a href="{{ dashboardUrl }}"><span class="dash-nav-icon"><i class="fas fa-compass"></i></span>Dashboard</a></li>
                     <!-- <li><a href="vendor-dashboard-listing.html"><span class="dash-nav-icon"><i class="fas fa-list-alt"></i> </span> My Listed Item </a> -->
                     <li class="{% if request.path == quoteListUrl%}active{% endif %}"><a href="{{ quoteListUrl }}"><span class="dash-nav-icon"><i class="fas fa-edit"></i></span>Request Quotes</a></li>
-                    <!-- <li><a href="vendor-dashboard-reviews.html"><span class="dash-nav-icon"><i class="fas fa-comments"></i></span>Reviews </a></li> -->
+                    <li><a class="{% if request.path == bookedListUrl%}active{% endif %}" href="{{ bookedListUrl }}"><span class="dash-nav-icon"><i class="fas fa-comments"></i></span>Booked List</a></li>
                     <!-- <li><a href="vendor-dashboard-profile.html"><span class="dash-nav-icon"><i class="fas fa-user-circle"></i></span>My Profile </a></li> -->
                     <li><a href="{% url 'account:logout' %}"><span class="dash-nav-icon"><i class="fas fa-sign-out-alt"></i></span>Logout </a></li>
                 </ul>

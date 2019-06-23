@@ -15,6 +15,7 @@ from booking.forms import VenueBookingForm, CartForm, QuoteForm
 from billing.models import BillingProfile
 from ams.utils import get_random_string_generator
 
+
 class HomeView(generic.TemplateView):
     template_name = 'home.html'
 

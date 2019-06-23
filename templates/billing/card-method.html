@@ -1,0 +1,22 @@
+{% extends 'base/base-site.html' %}
+    {% block css %}
+    {% endblock %}
+    {% block breadcrumb %}
+
+    {% endblock %}
+    {% block content %}
+    <section class="my-5 py-5">
+        <div class="cotnainer">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    {% include 'snippets/stripe_card_method_form.html' %}
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
+
+
+    {% block js %}
+
+    {% endblock %}

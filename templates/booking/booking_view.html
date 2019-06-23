@@ -9,7 +9,7 @@
             margin-bottom: 0;
         }
         .costing_list li:last-child{
-            border-top: 1px solid #ddd;
+            border-top: 0px solid #ddd;
             margin-top: 10px;
         }
         #id_total,
@@ -30,8 +30,10 @@
                     <div class="card">
                         <h5 class="card-header">Booking Details</h5>
                         <div class="card-body">
-                            {{ booking_obj.quote }}
-                            {{ booking_obj.billing_profile }}
+                            <h3>Venue: {{ booking_obj.quote.venue }}</h3>
+                            <h3>Billing Profile: {{ booking_obj.billing_profile }}</h3>
+                            <h4>Total Guest: {{ booking_obj.guest }}</h4>
+                            <h4>Booking Date: <strong>{{ booking_obj.booking_date }}</strong></h4>
                         </div>
                     </div>
                 </div>
@@ -41,7 +43,23 @@
                             <ul class="list-unstyled costing_list mb-0">
                                 <li class="d-flex justify-content-between"><h4>Sub Total: </h4> <h4>{{ booking_obj.sub_total }}</h4></li>
                                 <li class="d-flex justify-content-between"><h4>Total: </h4> <h4>{{ booking_obj.total }}</h4></li>
-                                <li class="d-flex justify-content-between"><button class="btn" type="submit">Checkout Now</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-unstyled costing_list mb-0">
+                                {% if billing_profile.has_card %}
+                                <li class="d-flex"> <strong>Card:</strong> {{ billing_profile.get_cards.first.last4 }}, Expire: {{ billing_profile.get_cards.first.exp_month }}, {{ billing_profile.get_cards.first.exp_year }}</li>
+                                {% else %}
+                                <li class="d-flex justify-content-between"><a class="text-success" href="{% url 'billing:card_method' %}">Add Card</a></li>
+                                {% endif %}
+                                <li class="d-flex justify-content-between">
+                                    <form action="" method="post">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-primary btn-sm">Checkout</button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </div>

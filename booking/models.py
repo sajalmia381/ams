@@ -1,13 +1,15 @@
 from django.db import models
 from django.db.models.signals import pre_save
 from django.conf import settings
-from django.shortcuts import redirect, get_object_or_404,reverse
+from django.shortcuts import redirect, get_object_or_404, reverse
+from django.utils import timezone
+from django.db.models.signals import post_save
 
+import stripe
 
 from billing.models import BillingProfile
 from venue.models import Venue, BookingPurpose
 from ams.utils import get_random_string_generator
-
 
 User = settings.AUTH_USER_MODEL
 
@@ -16,7 +18,8 @@ class Quote(models.Model):
     """ booking requested quote Object """
     STATUS_TYPE = (
         ('review', 'Reviewing'),
-        ('confirm', 'Confirmed')
+        ('confirm', 'Confirmed'),
+        ('booked', 'Booked'),
     )
     status = models.CharField(max_length=15, choices=STATUS_TYPE, default='review')
 
@@ -30,8 +33,16 @@ class Quote(models.Model):
 
     total = models.DecimalField(decimal_places=2, max_digits=10, default="0")
 
+    timestamp = models.DateTimeField(auto_now=False, auto_now_add=False, default=timezone.now)
+
     def __str__(self):
         return str(self.pk)
+
+    def mark_booked(self):
+        if self.status != 'booked':
+            self.status = 'booked'
+            self.save()
+            return self.status
 
 
 def quote_pre_save(sender, instance, *args, **kwargs):
@@ -87,6 +98,9 @@ class VenueBooking(models.Model):
     billing_profile = models.ForeignKey(BillingProfile, on_delete=models.CASCADE, blank=True, null=True)
     quote = models.OneToOneField(Quote, on_delete=models.CASCADE)
 
+    booking_date = models.DateField(blank=True, null=True)
+    guest = models.PositiveIntegerField(blank=True, null=True)
+
     sub_total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
     total = models.DecimalField(decimal_places=2, max_digits=8, blank=True, null=True)
 
@@ -98,8 +112,16 @@ class VenueBooking(models.Model):
     def get_absolute_edit_url(self):
         return reverse('booking:bookingUpdate', kwargs={'pk': self.pk})
 
+    def mark_paid(self):
+        if self.status != 'paid':
+            self.status = 'paid'
+            self.save()
+            self.quote.mark_booked()
+            print(self.quote.status)
+            return self.status
 
-def booking_id_pre_save(sender, instance, *args, **kwargs):
+
+def booking_pre_save(sender, instance, *args, **kwargs):
     # if instance.venue is not None:
     #     sub_total = instance.venue.price
     #     if instance.booking_type == 'first_half' or instance.booking_type == 'second_half':
@@ -109,12 +131,23 @@ def booking_id_pre_save(sender, instance, *args, **kwargs):
     #
     # if instance.sub_total >= 0:
     #     instance.total = instance.sub_total
+    print('pre_save_raise now')
+    instance.sub_total = instance.quote.total
+
+    if instance.sub_total > 0:
+        instance.total = instance.sub_total
+
+    if instance.booking_date is None:
+        instance.booking_date = instance.quote.booking_date
+
+    if instance.guest is None:
+        instance.guest = instance.quote.guest
 
     if instance.booking_id is None:
         instance.booking_id = get_random_string_generator()
 
 
-pre_save.connect(booking_id_pre_save, sender=VenueBooking)
+pre_save.connect(booking_pre_save, sender=VenueBooking)
 
 
 class Cart(models.Model):
@@ -132,3 +165,4 @@ class Cart(models.Model):
 
     def __str__(self):
         return self.id + '{venue} by {user}'.format(venue=self.venue.name, user=self.user.email)
+

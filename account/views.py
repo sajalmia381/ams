@@ -8,6 +8,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 User = get_user_model()
 
+from booking.models import VenueBooking
+
 from .signals import user_logged_in
 
 from .forms import *
@@ -87,3 +89,14 @@ class DashboardView(LoginRequiredMixin, generic.TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+def booked_list(request):
+    template_name = 'account/booked_list.html'
+
+    booking_list = VenueBooking.objects.filter(billing_profile__email=request.user.email, status='paid')
+    print(booking_list)
+    context = {
+        'object_list': booking_list,
+    }
+    return render(request, template_name, context)

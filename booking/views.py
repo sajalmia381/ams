@@ -21,10 +21,19 @@ def booking_view(request, quote_pk):
     if Quote.objects.get(pk=quote_pk).status == 'review':
         return HttpResponse("Quote is not review yet, Please wait it will confirm very soon")
 
+    billing_profile, billing_profile_create = BillingProfile.objects.get_or_new(request)
     booking_obj, booking_create = VenueBooking.objects.get_or_new(request, quote_pk=quote_pk)
+
+    if request.method == "POST":
+        if billing_profile.has_card:
+            card_obj = billing_profile.get_cards().first()
+            billing_profile.charge(booking_obj, card=card_obj)
+            booking_obj.mark_paid()
+            return redirect('booking:checkout_success')
 
     context = {
         "booking_obj": booking_obj,
+        "billing_profile": billing_profile,
     }
 
     return render(request, template_name, context)
@@ -118,6 +127,7 @@ def checkout_view(request):
     template_name = 'booking/checkout.html'
     if request.method == "POST":
         print(request.POST)
+        print(request.POST['stripeToken'])
 
     context = {
         'stripe_pub_key': STRIPE_PUB_KEY,
@@ -126,16 +136,8 @@ def checkout_view(request):
     return render(request, template_name, context)
 
 
-def cart_view(request):
-    """ Cart View """
-    template_name = 'booking/cart_form.html'
-
-
-    context = {
-
-    }
-
-    return render(request, template_name, context)
+def checkout_success(request):
+    return render(request, 'booking/checkout_success.html')
 
 
 class QuoteView(LoginRequiredMixin, ListView):
