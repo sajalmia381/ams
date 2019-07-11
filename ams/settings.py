@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+BASE_URL = 'https://127.0.0.1:8000'
 
 # Application definition
 
@@ -152,11 +153,11 @@ STRIPE_SECRET_KEY = 'sk_test_zHe2wZES61XlUKWWM9yUqk2P00GCKl0hWw'
 
 # for mail auth
 EMAIL_HOST = 'smtp.gmail.com'  # For GMail Only
-EMAIL_HOST_USER = 'noman35-1111@diu.edu.bd '
+EMAIL_HOST_USER = 'noman35-1111@diu.edu.bd'
 EMAIL_HOST_PASSWORD = 'diu351111'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'AMS <sajaluser381@gmail.com>'
+DEFAULT_FROM_EMAIL = 'AMS <noman35-1111@diu.edu.bd>'
 
 # let's encrypt SSL/TLS
 
@@ -169,3 +170,13 @@ DEFAULT_FROM_EMAIL = 'AMS <sajaluser381@gmail.com>'
 # SECURE_HSTS_SECONDS = None
 # SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 # SECURE_FRAME_DENY = False
+
+# Message
+
+from django.contrib.messages import constants as messages
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'bg-danger',
+    messages.INFO: 'bg-info',
+    50: 'critical',
+}

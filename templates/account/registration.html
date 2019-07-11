@@ -4,6 +4,19 @@
 {% block title %}Welcome to Home{% endblock %}
 
 {% block css %}
+<style>
+    .errorlist{
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .errorlist li{
+        text-align: right;
+        font-size: 12px;
+        color: red;
+        font-weight: 600;
+    }
+    
+</style>
 {% endblock %}
 
 {% block js %}
@@ -33,7 +46,7 @@
                                     <h3 class="mb-2">Business Register</h3>
                                     <p>Join AMS get your business listed or to claim your listing for FREE!</p>
                                 </div>
-                                <form id="register-form" name="register-form" action="#" method="post">
+                                <form id="register-form" name="register-form" action="" method="post">
                                     {% csrf_token %}
                                     <div class="row">
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
@@ -44,7 +57,9 @@
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                             <div class="form-group">
                                                 {{ form.email }}
+                                                {{ form.email.errors}}
                                             </div>
+                                            
                                         </div>
                                         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12 ">
                                             <div class="form-group service-form-group">

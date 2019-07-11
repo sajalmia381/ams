@@ -48,6 +48,15 @@
                                     <h3 class="mb-2">Welcome Back Vendor</h3>
                                     <p>Join AMS to get your business listed or to claim your listing for FREE!</p>
                                 </div>
+                                {% if messages %}
+                                <div class="messages">
+                                    {% for message in messages %}
+                                    <h4 class="text-white py-2 px-3 mb-1{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</h4>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+
+
                                 <!--/.vendor-title -->
                                 <form action="{% url 'account:login' %}" method="post" id="login-form" name="login-form">
                                     {% csrf_token %}

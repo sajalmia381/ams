@@ -6,13 +6,13 @@ from django.utils.http import is_safe_url
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-User = get_user_model()
+from django.contrib import messages
 
 from booking.models import VenueBooking
-
 from .signals import user_logged_in
-
 from .forms import *
+
+User = get_user_model()
 
 
 class LoginView(generic.FormView):
@@ -23,18 +23,19 @@ class LoginView(generic.FormView):
     # def get(self, request, *args, **kwargs):
     #     print(self.request.GET.get('next'))
     #     return super().get(request, *args, **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(LoginView, self).get_context_data(**kwargs)
+        context['next_url'] = self.request.GET.get('next')
+        return context
 
     def form_valid(self, form):
         request = self.request
         next_ = request.POST.get('next')
         next_post = request.GET.get('next')
-        print('next', next_, next_post)
         redirect_path = next_ or next_post or None
         username = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         auth = authenticate(request, password=password, username=username)
-        print(redirect_path)
-        print(request.get_host())
         if auth is not None:
             login(request, auth)
             user_logged_in.send(auth.__class__, instance=auth, request=request)
@@ -43,15 +44,13 @@ class LoginView(generic.FormView):
             else:
                 print("not safe url")
                 return redirect('venue:homeUrl')
-            return redirect('account:login')
         else:
             print('auth is None')
+            messages.add_message(request, messages.ERROR, 'Your username or Password not correct !!!')
             return redirect('account:login')
 
     def form_invalid(self, form):
-        # print(form)
         print('form not valid')
-        # print(dir(form))
         print(form.errors)
         return super().form_invalid(form)
 
@@ -81,6 +80,11 @@ class RegistrationView(generic.CreateView):
         # email.send()
         # print("success")
         return super(RegistrationView, self).form_valid(form)
+
+    def form_invalid(self, form):
+        # print('form not valid')
+        print('errors', form.errors)
+        return super().form_invalid(form)
 
 
 class DashboardView(LoginRequiredMixin, generic.TemplateView):

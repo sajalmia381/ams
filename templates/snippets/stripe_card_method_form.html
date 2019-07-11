@@ -1,5 +1,6 @@
 <form action="" method="POST" id="payment-form" data-token="{{ stripe_pub_key }}" data-next-url="{{ next_url }}">
     {% csrf_token %}
+    <input type="hidden" name="next" value="{{ next_url }}">
     <div class="form-row mx-0 mb-3">
         <label for="card-element">
             Credit or debit card

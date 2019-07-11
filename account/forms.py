@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm, ReadOnlyPasswordHashField
+from django.contrib.auth import authenticate
 
 User = get_user_model()
 
@@ -73,6 +74,12 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError("Passwords don't match")
         return password2
 
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        qs = User.objects.filter(email=email)
+        # print(qs)
+        return email
+
     def save(self, commit=True):
         # Save the provided password in hashed format
         user = super(UserRegistrationForm, self).save(commit=False)
@@ -86,3 +93,20 @@ class UserRegistrationForm(forms.ModelForm):
 class LoginForm(forms.Form):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Email'}), label="Email")
     password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'placeholder': 'Password'}))
+
+    def clean(self):
+        data = self.cleaned_data
+        email = data.get('email')
+        password = data.get('password')
+        qs = User.objects.filter(email=email)
+
+        if qs.exists():
+            print(qs.first().password)
+
+        # if qs.exists():
+        #     print(True)
+
+        # user = authenticate(self.request, username=email, password=password)
+        # if user is None:
+        #     raise forms.ValidationError("Invalid credentials")
+        return data
