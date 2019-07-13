@@ -4,7 +4,6 @@
 **/**/migrations
 **/migrations/
 .idea/
-media
 
 ### OSX ###
 .DS_Store
