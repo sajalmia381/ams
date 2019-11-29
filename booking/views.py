@@ -4,6 +4,7 @@ from billing.models import BillingProfile
 from django.conf import settings
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from django.views.generic import UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -13,7 +14,7 @@ from .models import VenueBooking, Quote
 
 STRIPE_PUB_KEY = getattr(settings, 'STRIPE_PUB_KEY', None)
 
-
+@login_required
 def booking_view(request, quote_pk):
     """ Booking Form View """
     template_name = 'booking/booking_view.html'
@@ -150,7 +151,11 @@ class QuoteView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         user = self.request.user
-        return Quote.objects.filter(email=user.email)
+        return Quote.objects.filter(email=user.email).order_by('-timestamp')
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(QuoteView, self).dispatch(request, *args, **kwargs)
 
 
 def quote_success(request):

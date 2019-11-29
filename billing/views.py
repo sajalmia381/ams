@@ -5,13 +5,15 @@ from django.http import HttpResponse, JsonResponse
 # from django.views.decorators.csrf import csrf_protect
 from django.views import generic
 
+from django.contrib.auth.decorators import login_required
+
 import stripe
 
 from .models import BillingProfile, Card
 
 STRIPE_PUB_KEY = getattr(settings, 'STRIPE_PUB_KEY', None)
 
-
+@login_required
 def card_method_view(request):
     """ Booking Checkout View """
     template_name = 'billing/card-method.html'
@@ -37,7 +39,7 @@ def card_method_view(request):
         next_url = next_
     elif next_referer:
         next_url = next_referer
-
+    print(next_url)
     context = {
         'stripe_pub_key': STRIPE_PUB_KEY,
         'next_url': next_url,

@@ -56,3 +56,16 @@ class QuoteForm(forms.ModelForm):
     class Meta:
         model = Quote
         fields = ['booking_date', 'booking_purpose', 'guest', 'name', 'email', 'mobile_no']
+
+    def clean_booking_date(self):
+        date = self.cleaned_data.get('booking_date')
+
+        # booking date list create
+        booked_date_list = []
+        booked_obj = VenueBooking.objects.all()
+        for obj in booked_obj:
+            booked_date_list.append(obj.booking_date.strftime("%Y-%m-%d"))
+
+        if date.strftime("%Y-%m-%d") in booked_date_list:
+            raise forms.ValidationError("This venue is already booked at this date")
+        return date

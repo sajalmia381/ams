@@ -64,7 +64,6 @@ class RegistrationView(generic.CreateView):
         request = self.request
         user = form.save(commit=False)
         user.is_active = True
-        user.save()
         # current_site = get_current_site(request)
         # mail_subject = "Please Active your account to access Pro."
         # message = render_to_string('account/registration.html', {

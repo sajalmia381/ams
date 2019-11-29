@@ -27,8 +27,37 @@
         .sidebar-venue{
             position: relative;
         }
+        .errorlist li {color: red}
     </style>
     {% endblock%}
+
+    {% block js %}
+    <script>
+        (function ($) {
+            var dateInput = $('#id_booking_date');
+            /*
+            var date = new Date();
+            var cYear = date.getFullYear();
+            var cMonth = date.getMonth();
+            var cDate = date.getDate();
+            console.log(cYear, cMonth, cDate);
+            */
+            dateInput.attr("autocomplete","off");
+            dateInput.datepicker({
+                minDate: +1,
+                beforeShowDay: noBookedDay,
+            });
+            var booked_date_list = []
+            booked_date_list = {{ booked_date_list|safe }}
+            function noBookedDay(date){
+                var string = jQuery.datepicker.formatDate('mm-dd-yy', date);
+                return [ booked_date_list.indexOf(string) == -1 ]
+            };
+
+        })(jQuery);
+    </script>
+    {% endblock %}
+
     {% block content %}
         <!-- page-header -->
         <div class="list-single-carousel mt-5">
@@ -90,15 +119,9 @@
                         <span class="vendor-price">
                                         {{ object.address }}
                                     </span>
-                        <span class="vendor-text"><a href="#location" class="btn-secondary-link ml-2">View Map</a></span></div>
-                    <div class="vendor-meta-item vendor-meta-item-bordered">
-                        <span class="vendor-guest">
-                            {% for type in object.booking_type %}
-                            {{ forloop.counter }}.{{ type|title }} 
-                            {% endfor %}
-                        </span>
-                        <span class="vendor-text">Booking Session</span>
+                        <span class="vendor-text"><a href="#location" class="btn-secondary-link ml-2">View Map</a></span>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -339,7 +362,7 @@
                             <form class="_booking_form_in_details mb-5" action="" method="POST">
                                 {% csrf_token %}
                                 {{ form.as_p }}
-                                <button class="btn btn-primary btn-block" type="submit">Requet For Quote</button>
+                                <button class="btn btn-primary btn-block" type="submit">Request For Quote</button>
                             </form>
                             <div class="mb30">
                                 <h4 class="widget-title">Share this </h4>

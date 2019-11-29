@@ -41,6 +41,8 @@ class UserManager(BaseUserManager):
         )
         return user
 
+    def get_or_new(self, email):
+        return self.create_user(email)
 
 class User(AbstractBaseUser):
     username = models.CharField(max_length=30, help_text='Leave This it\' will create instance of email', blank=True)

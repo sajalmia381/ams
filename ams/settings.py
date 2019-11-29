@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-BASE_URL = 'https://127.0.0.1:8000'
+BASE_URL = 'http://127.0.0.1:8000'
 
 # Application definition
 

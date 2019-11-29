@@ -18,6 +18,14 @@
         }
     </style>
     {% endblock %}
+    {% block js %}
+    <script>
+        if (window.location.href.indexOf('reload')==-1) {
+            window.location.replace(window.location.href+'?reload');
+        }
+        console.log('reload')
+    </script>
+    {% endblock %}
     {% block breadcrumb %}
 
     {% endblock %}

@@ -5,10 +5,8 @@ from django.conf import settings
 from django.template.loader import get_template
 from django import template
 
-from .models import VenueBooking, Cart, Quote
+from .models import VenueBooking, Quote
 admin.site.register(VenueBooking)
-
-admin.site.register(Cart)
 
 
 class QuoteAdmin(admin.ModelAdmin):
@@ -23,7 +21,7 @@ class QuoteAdmin(admin.ModelAdmin):
         # print(next_url)
         context = {
             'email': 'Clint',
-            'confirm_link': 'Example link of booking',
+            'confirm_link': 'http://127.0.0.1:8000/dashboard/quote/',
         }
 
         # try:
@@ -37,8 +35,9 @@ class QuoteAdmin(admin.ModelAdmin):
             for obj in queryset:
                 to_email.append(obj.email)
                 # context['email'] = obj.email
-                # context['confirm_link'] = settings.BASE_URL + reverse('booking:booking_obj', kwargs={'quote_pk': obj.pk})
+                context['confirm_link'] = settings.BASE_URL + reverse('booking:booking_obj', kwargs={'quote_pk': obj.pk})
 
+        print(context['confirm_link'])
         subject = "booking confirmed"
         message = get_template('booking/email/quote_confirm.txt').render(context)
         from_email = getattr(settings, 'EMAIL_HOST_USER', None)

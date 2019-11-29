@@ -76,7 +76,7 @@ class VenueBookingManager(models.Manager):
         quote_obj = get_object_or_404(Quote, pk=quote_pk)
         if request.user.is_authenticated:
             billing_profile, create = BillingProfile.objects.get_or_new(request)
-            self.model.objects.create(quote=quote_obj, billing_profile=billing_profile)
+            self.model.objects.create(quote=quote_obj, billing_profile=billing_profile, venue_id=quote_obj.venue.id)
         else:
             return redirect('account:login')
 
@@ -98,6 +98,7 @@ class VenueBooking(models.Model):
     billing_profile = models.ForeignKey(BillingProfile, on_delete=models.CASCADE, blank=True, null=True)
     quote = models.OneToOneField(Quote, on_delete=models.CASCADE)
 
+    venue_id = models.IntegerField(blank=True, null=True)
     booking_date = models.DateField(blank=True, null=True)
     guest = models.PositiveIntegerField(blank=True, null=True)
 

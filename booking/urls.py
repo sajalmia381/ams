@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 from .views import booking_view, booking_form_view, quote_success, QuoteView, checkout_success  # checkout_view, booking_view, BookingUpdate
 from venue.views import VenueDetailView
 

@@ -1,3 +1,4 @@
+import datetime
 from django.shortcuts import get_object_or_404, render, redirect
 from django.urls import reverse
 from django.utils.decorators import method_decorator
@@ -14,6 +15,7 @@ from .forms import VenueCreateForm
 from booking.forms import VenueBookingForm, CartForm, QuoteForm
 from billing.models import BillingProfile
 from ams.utils import get_random_string_generator
+from booking.models import VenueBooking
 
 
 class HomeView(generic.TemplateView):
@@ -45,6 +47,13 @@ class VenueDetailView(generic.DetailView, FormMixin):
         object_city = context['object'].city
         object_pk = context['object'].pk
         context['similar_city_objects'] = Venue.objects.filter(city=object_city).exclude(pk=object_pk)[:3]
+
+        # booking date list create
+        booked_date_list = []
+        booked_obj = VenueBooking.objects.filter(venue_id=object_pk)
+        for obj in booked_obj:
+            booked_date_list.append(obj.booking_date.strftime("%m-%d-%Y"))
+        context['booked_date_list'] = booked_date_list
         # context['form'] = self.get_form() # note: default context in form mixin
 
         # print(dir(context['similar_city_objects']))
