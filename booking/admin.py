@@ -6,7 +6,13 @@ from django.template.loader import get_template
 from django import template
 
 from .models import VenueBooking, Quote
-admin.site.register(VenueBooking)
+
+
+class VenueBookingAdmin(admin.ModelAdmin):
+    list_display = ['pk', 'venue_id', 'quote', 'booking_date', 'status', 'total']
+
+
+admin.site.register(VenueBooking, VenueBookingAdmin)
 
 
 class QuoteAdmin(admin.ModelAdmin):
